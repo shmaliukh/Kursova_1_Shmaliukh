@@ -25,6 +25,7 @@ public class Controller implements Initializable {
     public TextField txtCounter;
     public RadioButton Side1;
     public RadioButton Side2;
+    public RadioButton Side3;
     //    public TextField txtSide;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -38,12 +39,22 @@ public class Controller implements Initializable {
         int life;
         int damage;
         boolean isHeroActive=isActive.isSelected();
-        //int side=1;
+        int type=1;
 
         double x;
         double y;
 
         int counter;
+
+        if(Side1.isSelected()){
+            type=1;
+        }
+        if(Side2.isSelected()){
+            type=2;
+        }
+        if(Side3.isSelected()){
+            type=3;
+        }
 
         if(txtName.getText().isEmpty()){
             name = heroNames[(int)rnd.nextInt(heroNames.length)];
@@ -88,13 +99,14 @@ public class Controller implements Initializable {
 
 
         for( int i = 0 ; i < counter ; i++ ) {
-            if(i==0)Main.addNewHero(name,life,damage,isHeroActive, x, y);
+            if(i==0)Main.addNewHero(name,life,damage,isHeroActive, x, y, type);
             else Main.addNewHero(heroNames[(int)rnd.nextInt(heroNames.length)],
                     rnd.nextInt(100),
                     rnd.nextInt(100),
                     isHeroActive,
                     (double)rnd.nextInt((int) (World.mapHeight-imgSizeHeight)),
-                    (double)rnd.nextInt((int) (World.mapWidth-imgSizeWidth-20)));
+                    (double)rnd.nextInt((int) (World.mapWidth-imgSizeWidth-20)),
+                    type);
 
         }
 

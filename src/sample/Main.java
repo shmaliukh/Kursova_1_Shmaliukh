@@ -47,8 +47,21 @@ public class Main extends Application {
                                   int health,
                                   int damage,
                                   boolean isActive,
-                                  double x, double y){
-        heroes.add(new Recruit(name,health, damage, isActive, x, y));
+                                  double x, double y,int type){
+        Recruit NEW =new Recruit();
+        switch (type){
+            case 1:
+                NEW=new Recruit(name,health, damage, isActive, x, y);
+                break;
+            case 2:
+                NEW=new Soldier(name,health, damage, isActive, x, y);
+                break;
+            case 3:
+                NEW=new Knight(name,health, damage, isActive, x, y);
+                break;
+        }
+
+        heroes.add(NEW);
         System.out.println("\nNew hero created with:");
         System.out.println("name='" + name + '\'' +
                 ", health=" + health +
@@ -116,7 +129,7 @@ public class Main extends Application {
 
             }
         });
-
+        input = new Scene(root,700,500, Color.BEIGE);
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
                                   @Override
                                   public void handle(KeyEvent event) {
@@ -128,7 +141,7 @@ public class Main extends Application {
 
                                       switch (event.getCode()){
                                           case INSERT:
-                                              input = new Scene(root,700,500, Color.BEIGE);
+
                                               primaryStage.setScene(input);
 
 //                                          case PAGE_UP:

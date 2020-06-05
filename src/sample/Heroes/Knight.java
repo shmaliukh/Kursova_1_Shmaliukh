@@ -20,9 +20,8 @@ public class Knight extends Recruit{
         imageView.setX(x);
         imageView.setY(y);
 
-
         this.print(name,damage,health,x,y);
-        Main.heroes.add(this);
+        //Main.heroes.add(this);
     }
 
     public int health()

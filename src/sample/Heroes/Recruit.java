@@ -203,32 +203,6 @@ public class Recruit implements Cloneable{
         }
     }
 
-//    public void addHero(HeroLevel cl, String name, int damage, int health,boolean isActive)
-//    {
-//        Recruit NEW =new Recruit();
-//
-//        double  x=0;
-//        double  y=0;
-//
-//        switch(cl){
-//            case LIGHT:
-//                NEW= new Recruit();
-//                break;
-//            case MEDIUM:
-//                NEW= new Soldier();
-//                break;
-//            case HEAVY:
-//                NEW= new Knight();
-//                break;
-//        }
-//
-//        this.print(name, damage, health, x, y);
-//
-//
-//
-//        Main.group.getChildren().add(nameText);
-//        Main.heroes.add(new Recruit());
-//    }
     public void print( String name, int damage, int health, double x, double y){
         System.out.println("Printing");
         nameText = new Text(name);

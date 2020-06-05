@@ -26,10 +26,11 @@
         <Label layoutX="104.0" layoutY="169.0" text="Health" />
         <TextField fx:id="txtCounter" layoutX="345.0" layoutY="165.0" text="1" />
         <Label layoutX="294.0" layoutY="169.0" text="Кількість" />
-        <RadioButton fx:id="Side1" cache="true" layoutX="345.0" layoutY="209.0" mnemonicParsing="false" selected="true" text="Side 1">
+        <RadioButton fx:id="Side1" cache="true" layoutX="345.0" layoutY="192.0" mnemonicParsing="false" selected="true" text="Recruit">
             <toggleGroup>
                 <ToggleGroup fx:id="side" />
             </toggleGroup></RadioButton>
-        <RadioButton fx:id="Side2" layoutX="432.0" layoutY="209.0" mnemonicParsing="false" text="Side 2" toggleGroup="$side" />
+        <RadioButton fx:id="Side2" layoutX="345.0" layoutY="212.0" mnemonicParsing="false" text="Soldier" toggleGroup="$side" />
+      <RadioButton fx:id="Side3" layoutX="345.0" layoutY="233.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="78.0" text="Knight" toggleGroup="$side" />
     </children>
 </Pane>
