@@ -10,6 +10,8 @@ import javafx.scene.text.Font;
 import sample.Main;
 import javafx.scene.text.Text;
 
+import static sample.Main.*;
+
 public class Recruit implements Cloneable{
 
 
@@ -153,6 +155,7 @@ public class Recruit implements Cloneable{
         System.out.println("Deleted "+ this.name);
     }
 
+
     public void move(double dx, double dy ) {
         this.imageView.setX(this.imageView.getX() +dx);
         this.imageView.setY(this.imageView.getY() +dy);
@@ -174,7 +177,22 @@ public class Recruit implements Cloneable{
 
         rectActive.setX(rectActive.getX()+dx);
         rectActive.setY(rectActive.getY()+dy);
-        System.out.println("dx"+dx+"dy"+dy);
+        //System.out.println("dx"+dx+"dy"+dy);
+    }
+
+    public void interactionHeroes(int i,int j) {
+        if(heroes.get(i).getHealth()!=0 && heroes.get(j).getHealth()!=0){
+        if(heroes.get(i).getHealth()<=5){
+            heroes.get(i).setDamage(0);
+            heroes.get(i).setHealth(1);
+            //System.out.println(heroes.get(i).getName() +" damage is "+ heroes.get(i).getDamage());
+        }
+        heroes.get(i).lineDamage.setEndX(this.lineDamage.getStartX() + (((double) getDamage())/200*91));
+        heroes.get(i).lineHealth.setEndX(this.lineHealth.getStartX() + (((double) getHealth())/200*91));
+        System.out.println(heroes.get(i).getName() +" damage is "+ heroes.get(i).getDamage());
+        System.out.println(heroes.get(i).getName() +" health is "+ heroes.get(i).getHealth());
+        //this.lineHealth.setStartY(this.lineHealth.getStartY() + dy);
+    }
     }
 
     public void tryToActive(double mx, double my) {
@@ -228,13 +246,13 @@ public class Recruit implements Cloneable{
             rectActive.setStroke(Color.ORANGE);
         }
         nameText.setLayoutX(x);
-        nameText.setLayoutY(y-50);
+        nameText.setLayoutY(y-15);
 
         lineDamage.setLayoutX(x);
-        lineDamage.setLayoutY(y-20.0);
+        lineDamage.setLayoutY(y-10.0);
 
         lineHealth.setLayoutX(x);
-        lineHealth.setLayoutY(y-20.0);
+        lineHealth.setLayoutY(y-10.0);
 
         rectActive.setX(x);
         rectActive.setY(y);
