@@ -24,16 +24,18 @@ public class Main extends Application {
     public final int sceneWidth = 1000;
     public final int sceneHeight = 800;
 
-    public final int imgSizeWidth = 128;////|@@@@@@
-    public final int imgSizeHeight = 98;////|@@@@@@
+    public static final double imgSizeWidth = 128;////|@@@@@@
+    public static final double imgSizeHeight = 98;////|@@@@@@
 
+    public static Stage pStage;
     public static Scene scene;
-    public static Scene add;
+    public static Scene input;
 
     public static Group group=new Group();
     public static Group group2=new Group();
 
     public static ArrayList<Recruit> heroes = new ArrayList<>();
+
 
     public static Random rnd= new Random();
 
@@ -42,15 +44,39 @@ public class Main extends Application {
             "Кирил","Дуся","Іра","Рома","Маша","Каріна","Поліна","Єва","Адам","Джон","Ярик","Вітя","Валера"};
 
 
+    public static void addNewHero(String name,
+                                  int health,
+                                  int damage,
+                                  boolean isActive,
+                                  double x, double y){
+        heroes.add(new Recruit(name,health, damage, isActive, x, y));
+        System.out.println("\nNew hero created with:\n");
+        System.out.println("name='" + name + '\'' +
+                ", health=" + health +
+                ", damage=" + damage +
+                ", isActive=" + isActive+"\n");
+    }
 
-//    public static void addNewHero(String name,
-//                                  double life,
-//                                  double damage,
-//                                  boolean isHeroActive,
-//                                  double x, double y,
-//                                  int side){
-//        heroes.add(this));
-//    }
+
+    public void java_util_Arrays(){
+        System.out.println("java_util_Arrays:");
+        Recruit buffArray[]=new Recruit[heroes.size()];
+        for( int i = 0 ; i < heroes.size() ; i++ ) {
+            Recruit buf =heroes.get(i);
+            buffArray[i]=buf;
+            System.out.println("Recruit{" +
+                    "name='" + buffArray[i].getName() + '\'' +
+                    ", health=" + buffArray[i].getHealth() +
+                    ", damage=" + buffArray[i].getDamage() +
+                    ", isActive=" + buffArray[i].getisActive() +
+                    '}');
+        }
+        System.out.println("java_util_Arrays_END");
+
+    }
+
+
+
 
 
 
@@ -58,10 +84,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
+        Main.pStage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Tower Defender");
         primaryStage.getIcons().add(new Image("sample/images/icon.png"));
+
 
         Recruit.imgRecruit= new Image("/sample/images/imgHero1.png");
         Soldier.imgSoldier= new Image("/sample/images/imgHero2.png");
@@ -94,7 +121,7 @@ public class Main extends Application {
 
 
         scene = new Scene(group, sceneWidth, sceneHeight, Color.RED);
-        //add = new Scene(root,700,500, Color.BEIGE);
+        input = new Scene(root,700,500, Color.BEIGE);
 
         scene.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
@@ -122,26 +149,26 @@ public class Main extends Application {
 
                                       switch (event.getCode()){
                                           case INSERT:
-                                              primaryStage.setScene(add);
+                                              primaryStage.setScene(input);
 
 //                                          case PAGE_UP:
 //                                              //addNewHeroRand();
 //                                              break;
-//                                          case TAB:
-//                                              ///window.setVisible(true);
-//                                              System.out.println("window");
-//                                              break;
-                                          case ESCAPE:
-                                              for( int i = 0 ; i < heroes.size(); i++ ){
-                                                  if(heroes.get(i).getisActive()==true)
-                                                      heroes.get(i).tryToActive(heroes.get(i).getImageView().getX(),heroes.get(i).getImageView().getY());
-                                              }
-                                              break;
+                                         case TAB:
+                                             java_util_Arrays();
+                                             break;
                                           case ENTER:
                                               for( int i = 0 ; i < heroes.size(); i++ ){
                                                   if(heroes.get(i).getisActive()!=true)
                                                       heroes.get(i).tryToActive(heroes.get(i).getImageView().getX(),heroes.get(i).getImageView().getY());
                                               }
+                                              break;
+                                          case ESCAPE:
+                                              for( int i = 0 ; i < heroes.size(); i++ ){
+                                                  if(heroes.get(i).getisActive()==true)
+                                                      heroes.get(i).tryToActive(heroes.get(i).getImageView().getX(),heroes.get(i).getImageView().getY());
+                                              }
+
                                               break;
                                           case DELETE:
                                               for(int i=heroes.size()-1; i>=0; --i )

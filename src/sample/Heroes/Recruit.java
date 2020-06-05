@@ -18,6 +18,9 @@ public class Recruit implements Cloneable{
     protected String name;
     protected int health;
     protected int damage;
+
+    protected double x;
+    protected double y;
     ///////////////////////////////
 
     /////////////////////////////// зображення героя
@@ -31,9 +34,11 @@ public class Recruit implements Cloneable{
 
     private Line lineHealth;
     private Line lineDamage;
-
-
     ///////////////////////////////
+
+
+
+
 
 
     ///////////////////////////////
@@ -71,7 +76,12 @@ public class Recruit implements Cloneable{
     public Rectangle getrectActive(){
         return rectActive;
     }
-    
+    public double getX() {
+        return x;
+    }
+    public double getY() {
+        return y;
+    }
     ///////////////////////////////
     /////////////////////////////// setters
     public void setName(String name) {
@@ -89,6 +99,13 @@ public class Recruit implements Cloneable{
     public void setImageView(ImageView imageView) {
         this.imageView = imageView;
     }
+    public void setX(double x) {
+        this.x = x;
+    }
+    public void setY(double y) {
+        this.y = y;
+    }
+
 
     ///////////////////////////////
     ///////////////////////////////
@@ -109,8 +126,10 @@ public class Recruit implements Cloneable{
     public Recruit() {
 
     }
-
     public Recruit(String name, int damage, int health,boolean isActive,double x, double y){
+        System.out.println("Recruit_constructor");
+        this.x=x;
+        this.y=y;
         this.name=name;
         this.damage=damage;
         this.health=health;
@@ -120,7 +139,7 @@ public class Recruit implements Cloneable{
         imageView.setX(x);
         imageView.setY(y);
         Main.group.getChildren().add(imageView);
-        System.out.println("Recruit_constructor");
+
         this.print(name,damage,health,x,y);
 
         this.toString();
