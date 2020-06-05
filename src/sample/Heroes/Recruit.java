@@ -200,8 +200,6 @@ public class Recruit implements Cloneable{
             imageView.setX(this.rectActive.getX());
             imageView.setY(this.rectActive.getY());
 
-
-            Main.group.getChildren().add(imageView);
         }
     }
 
@@ -253,7 +251,7 @@ public class Recruit implements Cloneable{
             rectActive.setStroke(Color.TRANSPARENT);
         }
         else {
-            rectActive.setStroke(Color.YELLOW);
+            rectActive.setStroke(Color.ORANGE);
         }
         nameText.setLayoutX(x);
         nameText.setLayoutY(y-50);

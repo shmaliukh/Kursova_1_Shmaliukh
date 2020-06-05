@@ -7,12 +7,12 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import sample.Heroes.HeroLevel;
 import sample.Heroes.Knight;
 import sample.Heroes.Recruit;
 import sample.Heroes.Soldier;
@@ -22,26 +22,25 @@ import java.util.Random;
 
 public class Main extends Application {
     public final int sceneWidth = 1000;
-    public final int sceneHeight = 800;
+    public final int sceneHeight= 1000;
 
-    public static final double imgSizeWidth = 128;////|@@@@@@
-    public static final double imgSizeHeight = 98;////|@@@@@@
+    public static final int imgSizeWidth = 128;////|@@@@@@
+    public static final int imgSizeHeight = 98;////|@@@@@@
 
     public static Stage pStage;
     public static Scene scene;
     public static Scene input;
 
-    public static Group group=new Group();
-    public static Group group2=new Group();
+    public static Group group;
+
 
     public static ArrayList<Recruit> heroes = new ArrayList<>();
-
-
     public static Random rnd= new Random();
 
     public static String[] heroNames={"Влад","Вася","Віталік","Валя","Толя","Саша","Топа","Іван","Юра","Афінна",
             "Аврора","Алла","Андрій","Олег","Богдана","Вероніка","Віка","Стас","Христя","Жанна","Лариса","Вова",
             "Кирил","Дуся","Іра","Рома","Маша","Каріна","Поліна","Єва","Адам","Джон","Ярик","Вітя","Валера"};
+
 
 
     public static void addNewHero(String name,
@@ -50,7 +49,7 @@ public class Main extends Application {
                                   boolean isActive,
                                   double x, double y){
         heroes.add(new Recruit(name,health, damage, isActive, x, y));
-        System.out.println("\nNew hero created with:\n");
+        System.out.println("\nNew hero created with:");
         System.out.println("name='" + name + '\'' +
                 ", health=" + health +
                 ", damage=" + damage +
@@ -76,18 +75,19 @@ public class Main extends Application {
     }
 
 
-
-
-
-
-
-
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Main.pStage = primaryStage;
+        sample.Main.pStage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Tower Defender");
         primaryStage.getIcons().add(new Image("sample/images/icon.png"));
+
+
+        group = new Group();
+        Group group2=new Group();
+        scene = new Scene(group, sceneWidth, sceneHeight, Color.RED);
+        Rectangle world = new Rectangle(World.mapWidth, World.mapHeight, Color.BEIGE);
+        group.getChildren().add(world);
 
 
         Recruit.imgRecruit= new Image("/sample/images/imgHero1.png");
@@ -95,33 +95,12 @@ public class Main extends Application {
         Knight.imgKnight= new Image("/sample/images/imgHero3.png");
 
 
-        Group group=new Group();
-        Group group2=new Group();
-
-        Rectangle world = new Rectangle(World.mapWidth, World.mapHeight, Color.BEIGE);
-        group.getChildren().add(world);
-
-        World WORLD =new World();
-
-        //group.getChildren().add(group);
 
 
-        Recruit first=new Recruit(heroNames[(int)(rnd.nextInt(heroNames.length))], 5, 100,true,200,200);
-        System.out.println();
-
-        heroes.add(first);
+        heroes.add(new Recruit(heroNames[(int)(rnd.nextInt(heroNames.length))], 5, 100,true,200,200));
         System.out.println(heroes.toString());
 
-//        Rectangle r =new Rectangle(100,100);
-//        r.setFill(Color.RED);
-//        r.setX(100);
-//        r.setY(100);
-//        group.getChildren().addAll(r);
 
-
-
-        scene = new Scene(group, sceneWidth, sceneHeight, Color.RED);
-        input = new Scene(root,700,500, Color.BEIGE);
 
         scene.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
@@ -132,10 +111,10 @@ public class Main extends Application {
                         event.getSceneX(), event.getSceneY(),
                         event.getScreenX(), event.getScreenY());
 
-//                for( Recruit r:heroes )
-//                    r.tryToActive(event.getX(), event.getY(), r.getSide() );
-//
-                }
+                for( Recruit r:heroes )
+                    r.tryToActive(event.getX(), event.getY());
+
+            }
         });
 
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -149,14 +128,15 @@ public class Main extends Application {
 
                                       switch (event.getCode()){
                                           case INSERT:
+                                              input = new Scene(root,700,500, Color.BEIGE);
                                               primaryStage.setScene(input);
 
 //                                          case PAGE_UP:
 //                                              //addNewHeroRand();
 //                                              break;
-                                         case TAB:
-                                             java_util_Arrays();
-                                             break;
+                                          case TAB:
+                                              java_util_Arrays();
+                                              break;
                                           case ENTER:
                                               for( int i = 0 ; i < heroes.size(); i++ ){
                                                   if(heroes.get(i).getisActive()!=true)
@@ -246,8 +226,10 @@ public class Main extends Application {
                               }
         );
 
-        primaryStage.setScene(scene);
 
+
+        primaryStage.setTitle("Hello World");
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 

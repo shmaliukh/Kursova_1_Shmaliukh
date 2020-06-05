@@ -39,12 +39,12 @@ public class Controller implements Initializable {
         int damage;
         boolean isHeroActive=isActive.isSelected();
         //int side=1;
-        
+
         double x;
         double y;
-        
+
         int counter;
-        
+
         if(txtName.getText().isEmpty()){
             name = heroNames[(int)rnd.nextInt(heroNames.length)];
         }
