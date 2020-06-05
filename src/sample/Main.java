@@ -7,6 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -23,6 +24,9 @@ public class Main extends Application {
     public final int sceneWidth = 1000;
     public final int sceneHeight = 800;
 
+    public final int imgSizeWidth = 128;////|@@@@@@
+    public final int imgSizeHeight = 98;////|@@@@@@
+
     public static Scene scene;
     public static Scene add;
 
@@ -33,9 +37,9 @@ public class Main extends Application {
 
     public static Random rnd= new Random();
 
-    public static String[] heroNames={"Влад","Вася","Віталік","Валя","Толя","Саша","Топа","Іван","Юра","Афінна","Аврора","Алла",
-            "Андрій","Олег","Богдана","Вероніка","Віка","Стас","Христя","Жанна","Лариса","Вова","Кирил","Дуся",
-            "Іра","Рома","Маша","Каріна","Поліна","Єва","Адам","Джон","WOT)))","Ярик","Вітя","Валера"};
+    public static String[] heroNames={"Влад","Вася","Віталік","Валя","Толя","Саша","Топа","Іван","Юра","Афінна",
+            "Аврора","Алла","Андрій","Олег","Богдана","Вероніка","Віка","Стас","Христя","Жанна","Лариса","Вова",
+            "Кирил","Дуся","Іра","Рома","Маша","Каріна","Поліна","Єва","Адам","Джон","Ярик","Вітя","Валера"};
 
 
 
@@ -67,25 +71,30 @@ public class Main extends Application {
         Group group=new Group();
         Group group2=new Group();
 
-        Rectangle world = new Rectangle(World.mapwx, World.mapwy, Color.BEIGE);
+        Rectangle world = new Rectangle(World.mapWidth, World.mapHeight, Color.BEIGE);
         group.getChildren().add(world);
 
         World WORLD =new World();
 
-        group2.getChildren().add(group);
+        //group.getChildren().add(group);
 
 
-        Recruit first=new Recruit(heroNames[(int)(rnd.nextInt(heroNames.length))], 5, 100,false,200,200);
-
+        Recruit first=new Recruit(heroNames[(int)(rnd.nextInt(heroNames.length))], 5, 100,true,200,200);
+        System.out.println();
 
         heroes.add(first);
+        System.out.println(heroes.toString());
+
+//        Rectangle r =new Rectangle(100,100);
+//        r.setFill(Color.RED);
+//        r.setX(100);
+//        r.setY(100);
+//        group.getChildren().addAll(r);
 
 
-        group2.getChildren().add(group);
 
-
-        scene = new Scene(group2, sceneWidth, sceneHeight, Color.RED);
-        add = new Scene(root,700,500, Color.BEIGE);
+        scene = new Scene(group, sceneWidth, sceneHeight, Color.RED);
+        //add = new Scene(root,700,500, Color.BEIGE);
 
         scene.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
@@ -101,6 +110,114 @@ public class Main extends Application {
 //
                 }
         });
+
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                                  @Override
+                                  public void handle(KeyEvent event) {
+                                      double x=0;
+                                      double y=0;
+
+                                      double delta=5.0;
+                                      if(event.isShiftDown())delta*=10.0;
+
+                                      switch (event.getCode()){
+                                          case INSERT:
+                                              primaryStage.setScene(add);
+
+//                                          case PAGE_UP:
+//                                              //addNewHeroRand();
+//                                              break;
+//                                          case TAB:
+//                                              ///window.setVisible(true);
+//                                              System.out.println("window");
+//                                              break;
+                                          case ESCAPE:
+                                              for( int i = 0 ; i < heroes.size(); i++ ){
+                                                  if(heroes.get(i).getisActive()==true)
+                                                      heroes.get(i).tryToActive(heroes.get(i).getImageView().getX(),heroes.get(i).getImageView().getY());
+                                              }
+                                              break;
+                                          case ENTER:
+                                              for( int i = 0 ; i < heroes.size(); i++ ){
+                                                  if(heroes.get(i).getisActive()!=true)
+                                                      heroes.get(i).tryToActive(heroes.get(i).getImageView().getX(),heroes.get(i).getImageView().getY());
+                                              }
+                                              break;
+                                          case DELETE:
+                                              for(int i=heroes.size()-1; i>=0; --i )
+                                              {
+                                                  Recruit hero= heroes.get(i);
+                                                  if( hero.getisActive() )
+                                                  {
+                                                      hero.removeFromScreen();
+                                                      heroes.remove(i);
+                                                  }
+                                              }
+                                              break;
+
+                                          case SPACE:
+                                              if(rnd.nextInt(4)==1)y-=delta;
+                                              if(rnd.nextInt(4)==1)y+=delta;
+                                              if(rnd.nextInt(4)==1)x-=delta;
+                                              if(rnd.nextInt(4)==1)x+=delta;
+                                              if(rnd.nextInt(4)==1)x+=delta;
+
+                                              break;
+                                          case UP:
+                                              y-=delta;break;
+                                          case DOWN:
+                                              y+=delta;break;
+                                          case LEFT:
+                                              x-=delta; break;
+                                          case RIGHT:
+                                              x+=delta; break;
+                                      }
+
+                                      for( int i = 0 ; i < heroes.size(); i++ ) {
+
+                                          if( heroes.get(i).getisActive() &&
+                                                  heroes.get(i).getrectActive().getX() + x > 0 && heroes.get(i).getrectActive().getX() + x < World.mapHeight- imgSizeHeight &&
+                                                  heroes.get(i).getrectActive().getY() + y > 0 && heroes.get(i).getrectActive().getY() + y < World.mapWidth- imgSizeWidth
+                                          )
+                                              heroes.get(i).move(x , y);
+                                          //if( heroes.get(i).getCanvas().getBoundsInParent().intersects(heroes.get(j).rectActive()){
+
+
+                                      }
+
+//                for( int i = 0 ; i < heroes.size(); i++ ) {
+//                    for( int j = 0 ; j < heroes.size() ; j++ ) {
+//                        if(i!=j){
+//                            if((heroes.get(i).rectActive.getX()<=heroes.get(i).rectActive.getX() || heroes.get(i).rectActive.getX()>=heroes.get(i).rectActive.getX()) &&
+//                               (heroes.get(i).rectActive.getX()+imgSizeHeight<=heroes.get(i).rectActive.getX()+imgSizeHeight || heroes.get(i).rectActive.getX()>=heroes.get(i).rectActive.getX()+imgSizeHeight) &&
+//                               (heroes.get(i).rectActive.getY()<=heroes.get(i).rectActive.getY() || heroes.get(i).rectActive.getY()>=heroes.get(i).rectActive.getY()) &&
+//                               (heroes.get(i).rectActive.getY()+imgSizeWidth<=heroes.get(i).rectActive.getY()+imgSizeWidth || heroes.get(i).rectActive.getY()>=heroes.get(i).rectActive.getY()+imgSizeWidth)
+//                            )System.out.println(heroes.get(i).life +" "+ heroes.get(j).life);
+//                                heroes.get(i).life-=heroes.get(j).damage;
+//                                heroes.get(j).life-=heroes.get(i).damage;
+//
+//
+//                            heroes.get(i).lifeLine.setEndX(heroes.get(i).lifeLineBack.getEndX() -186 + heroes.get(j).life);
+//
+//                            heroes.get(j).lifeLine.setEndX(heroes.get(i).lifeLineBack.getEndX() -186 + heroes.get(i).life);
+//
+//
+//
+//                        }
+//                    }
+//                }
+//                    if( heroes.get(i).getBoundsInParent().intersects(heroes.getBoundsInParent()))
+//                    {
+//                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+//
+//                        alert.setTitle("УВАГА!!!");
+//                        alert.setHeaderText("Зіткнення з айсбергом!");
+//
+//                        alert.showAndWait();
+//                    }
+                                  }
+                              }
+        );
 
         primaryStage.setScene(scene);
 

@@ -1,6 +1,6 @@
 package sample.Heroes;
 
-import javafx.scene.control.Label;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -8,8 +8,9 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import sample.Main;
+import javafx.scene.text.Text;
 
-public class Recruit {
+public class Recruit implements Cloneable{
 
 
 
@@ -17,24 +18,23 @@ public class Recruit {
     protected String name;
     protected int health;
     protected int damage;
-
-
     ///////////////////////////////
 
     /////////////////////////////// зображення героя
     public static Image imgRecruit;
     protected ImageView imageView;
 
-    protected Rectangle rectActive;
+    private Rectangle rectActive;
     protected boolean isActive;
 
-    protected Label nameText;
+    private Text nameText;
 
     private Line lineHealth;
     private Line lineDamage;
 
 
     ///////////////////////////////
+
 
     ///////////////////////////////
 
@@ -61,7 +61,17 @@ public class Recruit {
     {
         return damage;
     }
-
+    public boolean getisActive()
+    {
+        return isActive;
+    }
+    public ImageView getImageView() {
+        return imageView;
+    }
+    public Rectangle getrectActive(){
+        return rectActive;
+    }
+    
     ///////////////////////////////
     /////////////////////////////// setters
     public void setName(String name) {
@@ -73,8 +83,24 @@ public class Recruit {
     public void setDamage(int damage) {
         this.damage = damage;
     }
+    public void setisActive(boolean isActive ) {
+        this.isActive = isActive;;
+    }
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
+    }
 
     ///////////////////////////////
+    ///////////////////////////////
+    @Override
+    public String toString() {
+        return "Recruit{" +
+                "name='" + name + '\'' +
+                ", health=" + health +
+                ", damage=" + damage +
+                ", isActive=" + isActive +
+                '}';
+    }
     ///////////////////////////////
     ///////////////////////////////
     ///////////////////////////////
@@ -83,6 +109,7 @@ public class Recruit {
     public Recruit() {
 
     }
+
     public Recruit(String name, int damage, int health,boolean isActive,double x, double y){
         this.name=name;
         this.damage=damage;
@@ -90,13 +117,73 @@ public class Recruit {
         this.isActive=isActive;
 
         imageView = new ImageView(imgRecruit);
-        Main.group.getChildren().add(imageView);
         imageView.setX(x);
         imageView.setY(y);
-
-
+        Main.group.getChildren().add(imageView);
+        System.out.println("Recruit_constructor");
         this.print(name,damage,health,x,y);
-        Main.heroes.add(this);
+
+        this.toString();
+
+        //Main.heroes.add(this);
+        //Main.
+    }
+    public void removeFromScreen() {
+        Main.group.getChildren().removeAll(imageView,nameText,lineDamage,lineHealth);
+        Main.group.getChildren().remove(rectActive);
+        System.out.println("Deleted "+ this.name);
+    }
+
+    public void move(double dx, double dy ) {
+        this.imageView.setX(this.imageView.getX() +dx);
+        this.imageView.setY(this.imageView.getY() +dy);
+
+        this.nameText.setX(this.nameText.getX()+dx);
+        this.nameText.setY(this.nameText.getY()+dy);
+
+        this.lineDamage.setStartX(this.lineDamage.getStartX() + dx);
+        this.lineDamage.setStartY(this.lineDamage.getStartY() + dy);
+
+        this.lineHealth.setStartX(this.lineHealth.getStartX() + dx);
+        this.lineHealth.setStartY(this.lineHealth.getStartY() + dy);
+
+        this.lineDamage.setEndX(this.lineDamage.getEndX() + dx);
+        this.lineDamage.setEndY(this.lineDamage.getEndY() + dy);
+
+        this.lineHealth.setEndX(this.lineHealth.getEndX() + dx);
+        this.lineHealth.setEndY(this.lineHealth.getEndY() + dy);
+
+        rectActive.setX(rectActive.getX()+dx);
+        rectActive.setY(rectActive.getY()+dy);
+        System.out.println("dx"+dx+"dy"+dy);
+    }
+
+    public void tryToActive(double mx, double my) {
+
+        if( imageView.boundsInParentProperty().get().contains(mx,my) )
+        {
+            //Main.group.getChildren().remove(imageView);
+            isActive=!isActive;
+
+            if(isActive)
+            {
+                //imageView=new ImageView(imageView);
+                rectActive.setStroke(Color.ORANGE);
+                System.out.println("Activated " + this.name);
+            }
+            else
+            {
+                //imageView=new ImageView(imgHeroActive);
+                rectActive.setStroke(Color.BEIGE);
+                System.out.println("De-activated " + this.name);
+            }
+
+            imageView.setX(this.rectActive.getX());
+            imageView.setY(this.rectActive.getY());
+
+
+            Main.group.getChildren().add(imageView);
+        }
     }
 
 //    public void addHero(HeroLevel cl, String name, int damage, int health,boolean isActive)
@@ -126,10 +213,8 @@ public class Recruit {
 //        Main.heroes.add(new Recruit());
 //    }
     public void print( String name, int damage, int health, double x, double y){
-
-
-
-        nameText = new Label(name);
+        System.out.println("Printing");
+        nameText = new Text(name);
         nameText.setText(name);
         nameText.setFont(new Font(16));
 
@@ -141,11 +226,16 @@ public class Recruit {
         lineHealth.setStrokeWidth(5);
         lineHealth.setStroke(Color.GREEN);
 
+
         rectActive=new Rectangle(91.0,112.0);
         rectActive.setFill(Color.TRANSPARENT);
         rectActive.setStrokeWidth(3);
-        rectActive.setStroke(Color.TRANSPARENT);
-
+        if(isActive==false){
+            rectActive.setStroke(Color.TRANSPARENT);
+        }
+        else {
+            rectActive.setStroke(Color.YELLOW);
+        }
         nameText.setLayoutX(x);
         nameText.setLayoutY(y-50);
 
@@ -160,6 +250,7 @@ public class Recruit {
 
         Main.group.getChildren().addAll(nameText,lineDamage,lineHealth,rectActive);
 
+        System.out.println("Printing end");
     }
 
 

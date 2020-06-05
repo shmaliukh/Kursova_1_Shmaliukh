@@ -21,7 +21,8 @@ public class Soldier extends Recruit {
         imageView.setY(y);
 
 
-        this.print(name,damage,health,x,y);
+        //this.print(name,damage,health,x,y);
+
         Main.heroes.add(this);
     }
 
