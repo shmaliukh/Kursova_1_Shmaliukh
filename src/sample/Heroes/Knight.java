@@ -1,26 +1,77 @@
 package sample.Heroes;
 
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import sample.Main;
 
 public class Knight extends Recruit{
     public static Image imgKnight;
 
+    public int healthMax()
+    {
+        return 200;
+    }
+    public int damageMax()
+    {
+        return 3;
+    }
+
     public Knight(){};
-    public Knight(String name, int damage, int health,boolean isActive,double x, double y){
+    public Knight(String name, int health, int damage,boolean isActive,double x, double y){
         super();
+        this.x=x;
+        this.y=y;
         this.name=name;
         this.damage=damage;
         this.health=health;
         this.isActive=isActive;
 
+        //функція прінт переніс сюди, їй нема смислу бути там, це просто генерація,
+        // на даний момент, поки у тебе всі в ієрархії однакові по картінці, я цей кусок і в інших скопіював, змінив тіки головнку картинку
+        System.out.println("Printing");
         imageView = new ImageView(imgKnight);
-        Main.group.getChildren().add(imageView);
-        imageView.setX(x);
-        imageView.setY(y);
+        imageView.setPreserveRatio(true);
+        imageView.setFitHeight(120);
+        nameText = new Text(name);
+        nameText.setFont(new Font(16));
 
-        this.print(name,damage,health,x,y);
+        lineDamage = new Line();
+        lineDamage.setStrokeWidth(5);
+        lineDamage.setStroke(Color.RED);
+
+        lineHealth=new Line(); //!!!health
+        lineHealth.setStrokeWidth(5);
+        lineHealth.setStroke(Color.GREEN);
+
+
+        rectActive=new Rectangle(91.0,112.0);
+        rectActive.setFill(Color.TRANSPARENT);
+        rectActive.setStrokeWidth(3);
+        rectActive.setArcWidth(10);
+        rectActive.setArcHeight(10);
+
+        if(isActive==false){
+            rectActive.setStroke(Color.LIGHTGREEN);
+        }
+        else {
+            rectActive.setStroke(Color.ORANGE);
+        }
+
+
+        this.allPictureOfHero = new Group(imageView, nameText, lineDamage,lineHealth,rectActive);
+        Main.pane.getChildren().add(allPictureOfHero);
+
+        System.out.println("Printing end");
+
+        this.toString();
+
+
         //Main.heroes.add(this);
     }
 
@@ -30,6 +81,6 @@ public class Knight extends Recruit{
     }
     public int damage()
     {
-        return 9;
+        return 3;
     }
 }

@@ -1,6 +1,7 @@
 package sample.Heroes;
 
 
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -9,6 +10,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import sample.Main;
 import javafx.scene.text.Text;
+import sample.Tower1;
 
 import static sample.Main.*;
 
@@ -29,13 +31,14 @@ public class Recruit implements Cloneable{
     public static Image imgRecruit;
     protected ImageView imageView;
 
-    private Rectangle rectActive;
+    protected Rectangle rectActive;
     protected boolean isActive;
 
-    private Text nameText;
+    protected Text nameText;
 
-    private Line lineHealth;
-    private Line lineDamage;
+    protected Line lineHealth;
+    protected Line lineDamage;
+    protected Group allPictureOfHero;
     ///////////////////////////////
 
 
@@ -46,13 +49,13 @@ public class Recruit implements Cloneable{
     ///////////////////////////////
 
 
-    public int health()
+    public int healthMax()
     {
         return 100;
     }
-    public int damage()
+    public int damageMax()
     {
-        return 5;
+        return 1;
     }
     public int speed(){return 5;}
     /////////////////////////////// getters
@@ -68,14 +71,14 @@ public class Recruit implements Cloneable{
     {
         return damage;
     }
-    public boolean getisActive()
+    public boolean isActive()
     {
         return isActive;
     }
     public ImageView getImageView() {
         return imageView;
     }
-    public Rectangle getrectActive(){
+    public Rectangle getRectActive(){
         return rectActive;
     }
     public double getX() {
@@ -95,7 +98,7 @@ public class Recruit implements Cloneable{
     public void setDamage(int damage) {
         this.damage = damage;
     }
-    public void setisActive(boolean isActive ) {
+    public void setActive(boolean isActive ) {
         this.isActive = isActive;;
     }
     public void setImageView(ImageView imageView) {
@@ -108,6 +111,9 @@ public class Recruit implements Cloneable{
         this.y = y;
     }
 
+    public Group getAllPictureOfHero() {
+        return allPictureOfHero;
+    }
 
     ///////////////////////////////
     ///////////////////////////////
@@ -128,7 +134,7 @@ public class Recruit implements Cloneable{
     public Recruit() {
 
     }
-    public Recruit(String name, int damage, int health,boolean isActive,double x, double y){
+    public Recruit(String name, int health, int damage,boolean isActive,double x, double y){
         System.out.println("Recruit_constructor");
         this.x=x;
         this.y=y;
@@ -137,12 +143,41 @@ public class Recruit implements Cloneable{
         this.health=health;
         this.isActive=isActive;
 
-        imageView = new ImageView(imgRecruit);
-        imageView.setX(x);
-        imageView.setY(y);
-        Main.group.getChildren().add(imageView);
 
-        this.print(name,damage,health,x,y);
+        System.out.println("Printing");
+        imageView = new ImageView(imgRecruit);
+        imageView.setPreserveRatio(true);
+        imageView.setFitHeight(120);
+        nameText = new Text(name);
+        nameText.setFont(new Font(16));
+
+        lineDamage = new Line();
+        lineDamage.setStrokeWidth(5);
+        lineDamage.setStroke(Color.RED);
+
+        lineHealth=new Line(); //!!!health
+        lineHealth.setStrokeWidth(5);
+        lineHealth.setStroke(Color.GREEN);
+
+
+        rectActive=new Rectangle(91.0,112.0);
+        rectActive.setFill(Color.TRANSPARENT);
+        rectActive.setStrokeWidth(3);
+        rectActive.setArcWidth(10);
+        rectActive.setArcHeight(10);
+
+        if(isActive==false){
+            rectActive.setStroke(Color.LIGHTGREEN);
+        }
+        else {
+            rectActive.setStroke(Color.ORANGE);
+        }
+
+
+        this.allPictureOfHero = new Group(imageView, nameText, lineDamage,lineHealth,rectActive);
+        Main.pane.getChildren().add(allPictureOfHero);
+
+        System.out.println("Printing end");
 
         this.toString();
 
@@ -150,33 +185,34 @@ public class Recruit implements Cloneable{
         //Main.
     }
     public void removeFromScreen() {
-        Main.group.getChildren().removeAll(imageView,nameText,lineDamage,lineHealth);
-        Main.group.getChildren().remove(rectActive);
+        Main.pane.getChildren().remove(allPictureOfHero);
         System.out.println("Deleted "+ this.name);
     }
 
 
-    public void move(double dx, double dy ) {
-        this.imageView.setX(this.imageView.getX() +dx);
-        this.imageView.setY(this.imageView.getY() +dy);
+    public void move() {
 
-        this.nameText.setX(this.nameText.getX()+dx);
-        this.nameText.setY(this.nameText.getY()+dy);
+        this.imageView.setX(x);
+        this.imageView.setY(y);
 
-        this.lineDamage.setStartX(this.lineDamage.getStartX() + dx);
-        this.lineDamage.setStartY(this.lineDamage.getStartY() + dy);
+        this.nameText.setX(x);
+        this.nameText.setY(y-15);
 
-        this.lineHealth.setStartX(this.lineHealth.getStartX() + dx);
-        this.lineHealth.setStartY(this.lineHealth.getStartY() + dy);
+        this.lineDamage.setStartX(x+2);
+        this.lineDamage.setStartY(y-9);
 
-        this.lineDamage.setEndX(this.lineDamage.getEndX() + dx);
-        this.lineDamage.setEndY(this.lineDamage.getEndY() + dy);
+        this.lineHealth.setStartX(x+2);
+        this.lineHealth.setStartY(y-4);
 
-        this.lineHealth.setEndX(this.lineHealth.getEndX() + dx);
-        this.lineHealth.setEndY(this.lineHealth.getEndY() + dy);
+        this.lineDamage.setEndX(x+(double)91*damage/3);//максимальна довжина лінії така як і прямокутник активації - 91, 200 -максимальний
+        this.lineDamage.setEndY(y-9);
 
-        rectActive.setX(rectActive.getX()+dx);
-        rectActive.setY(rectActive.getY()+dy);
+        this.lineHealth.setEndX(x+(double)91*health/200);
+        this.lineHealth.setEndY(y-4);
+
+        rectActive.setX(x);
+        rectActive.setY(y);
+
         //System.out.println("dx"+dx+"dy"+dy);
     }
 
@@ -187,12 +223,38 @@ public class Recruit implements Cloneable{
             heroes.get(i).setHealth(1);
             //System.out.println(heroes.get(i).getName() +" damage is "+ heroes.get(i).getDamage());
         }
-        heroes.get(i).lineDamage.setEndX(this.lineDamage.getStartX() + (((double) getDamage())/200*91));
+        else{ heroes.get(i).setDamage(damageMax());}
+
+        heroes.get(i).lineDamage.setEndX(this.lineDamage.getStartX() + (((double) getDamage())/3*91));
         heroes.get(i).lineHealth.setEndX(this.lineHealth.getStartX() + (((double) getHealth())/200*91));
+
         System.out.println(heroes.get(i).getName() +" damage is "+ heroes.get(i).getDamage());
         System.out.println(heroes.get(i).getName() +" health is "+ heroes.get(i).getHealth());
         //this.lineHealth.setStartY(this.lineHealth.getStartY() + dy);
     }
+    }
+
+    public void interactionTower1(int i,int counterOperateTower1) {
+
+
+            heroes.get(i).setDamage(heroes.get(i).damageMax());
+            if(heroes.get(i) instanceof Knight &&
+                    heroes.get(i).getHealth() < heroes.get(i).healthMax()){
+                heroes.get(i).setHealth(heroes.get(i).getHealth() + Tower1.heal());
+
+            }
+            else if(heroes.get(i) instanceof Soldier &&
+                    heroes.get(i).getHealth() < heroes.get(i).healthMax()){
+                heroes.get(i).setHealth(heroes.get(i).getHealth() + Tower1.heal());
+
+            }
+            else if(heroes.get(i) instanceof Recruit &&
+                    heroes.get(i).getHealth() < heroes.get(i).healthMax()){
+                heroes.get(i).setHealth(heroes.get(i).getHealth() + Tower1.heal());
+
+            }
+
+
     }
 
     public void tryToActive(double mx, double my) {
@@ -201,7 +263,6 @@ public class Recruit implements Cloneable{
         {
             //Main.group.getChildren().remove(imageView);
             isActive=!isActive;
-
             if(isActive)
             {
                 //imageView=new ImageView(imageView);
@@ -211,7 +272,7 @@ public class Recruit implements Cloneable{
             else
             {
                 //imageView=new ImageView(imgHeroActive);
-                rectActive.setStroke(Color.BEIGE);
+                rectActive.setStroke(Color.LIGHTGREEN);
                 System.out.println("De-activated " + this.name);
             }
 
@@ -220,48 +281,29 @@ public class Recruit implements Cloneable{
 
         }
     }
-
-    public void print( String name, int damage, int health, double x, double y){
-        System.out.println("Printing");
-        nameText = new Text(name);
-        nameText.setText(name);
-        nameText.setFont(new Font(16));
-
-        lineDamage = new Line(0, 0 , (double)damage/100*91 ,  0);
-        lineDamage.setStrokeWidth(5);
-        lineDamage.setStroke(Color.RED);
-
-        lineHealth=new Line(0,5,(double)health/200*91,5); //!!!health
-        lineHealth.setStrokeWidth(5);
-        lineHealth.setStroke(Color.GREEN);
-
-
-        rectActive=new Rectangle(91.0,112.0);
-        rectActive.setFill(Color.TRANSPARENT);
-        rectActive.setStrokeWidth(3);
-        if(isActive==false){
-            rectActive.setStroke(Color.TRANSPARENT);
+    public void left(double delta) {
+        if (isActive && x >= 0) {
+            x -= delta;
         }
-        else {
-            rectActive.setStroke(Color.ORANGE);
-        }
-        nameText.setLayoutX(x);
-        nameText.setLayoutY(y-15);
-
-        lineDamage.setLayoutX(x);
-        lineDamage.setLayoutY(y-10.0);
-
-        lineHealth.setLayoutX(x);
-        lineHealth.setLayoutY(y-10.0);
-
-        rectActive.setX(x);
-        rectActive.setY(y);
-
-        Main.group.getChildren().addAll(nameText,lineDamage,lineHealth,rectActive);
-
-        System.out.println("Printing end");
     }
 
+    public void right(double delta) {
+        if (isActive && x <= pane.getWidth() - 100) {
+            x += delta;
+        }
+    }
+
+    public void up(double delta) {
+        if (isActive && y >= 0) {
+            y -= delta;
+        }
+    }
+
+    public void down(double delta) {
+        if (isActive && y <= Main.pane.getHeight() - 200) {
+            y += delta;
+        }
+    }
 
 
     public String stringHeroType()
