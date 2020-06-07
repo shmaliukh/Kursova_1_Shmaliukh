@@ -1,4 +1,4 @@
-package Towers;
+package sample.Towers;
 
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -9,27 +9,27 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import sample.Main;
 
-public class Tower3 {
+public class Tower1 {
 //    public boolean intersects( double x, double y, double wx, double wy ) {
 //        if( image.intersects(x,y,wx,wy) )return true;
 //
 //        return false;
 //    }
 
-    public static Image imgTower3;
+    public static Image imgTower1;
     public static ImageView imageView;
 
     protected static Text nameText;
 
-    protected Group allPictureOfTower3;
+    protected Group allPictureOfTower1;
 
-    private double x = 100;
-    private double y = 500;
+    private double x = 700;
+    private double y = 700;
 
     private static int counterOperate;
 
     public static int heal(){
-        return 3;
+        return 1;
     }
 
     public double getX() {
@@ -66,12 +66,12 @@ public class Tower3 {
         this.nameText = nameText;
     }
 
-    public Group getAllPictureOfTower3() {
-        return allPictureOfTower3;
+    public Group getAllPictureOfTower1() {
+        return allPictureOfTower1;
     }
 
-    public void setAllPictureOfTower3(Group allPictureOfTower3) {
-        this.allPictureOfTower3 = allPictureOfTower3;
+    public void setAllPictureOfTower1(Group allPictureOfTower1) {
+        this.allPictureOfTower1 = allPictureOfTower1;
     }
 
 
@@ -86,8 +86,8 @@ public class Tower3 {
 
 
 
-    public Tower3(){
-        imageView = new ImageView(imgTower3);
+    public Tower1(){
+        imageView = new ImageView(imgTower1);
         imageView.setPreserveRatio(true);
         //imageView.setFitHeight(120);
 
@@ -110,8 +110,8 @@ public class Tower3 {
         rect.setX(getX());
         rect.setY(getY());
 
-        this.allPictureOfTower3 = new Group(imageView, nameText, rect);
-        Main.pane.getChildren().add(allPictureOfTower3);
+        this.allPictureOfTower1 = new Group(imageView, nameText, rect);
+        Main.pane.getChildren().add(allPictureOfTower1);
 
     };
 

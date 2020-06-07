@@ -1,5 +1,8 @@
 package sample;
 
+import sample.Towers.Tower1;
+import sample.Towers.Tower2;
+import sample.Towers.Tower3;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -38,18 +41,33 @@ public class MiniMap {
         label.setFont(new Font(16));
         label.setLayoutX(pane.getMinWidth() / 2.1);
 
+        ImageView imageViewTower1 =new ImageView();
+        ImageView imageViewTower2 =new ImageView();
+        ImageView imageViewTower3 =new ImageView();
+
+        imageViewTower1= Tower1.getImageView();
+        imageViewTower2= Tower2.getImageView();
+        imageViewTower3= Tower3.getImageView();
+
         mainArea = new Rectangle(0, 0, Main.scene.getWidth() * MiniMap.SCALE, Main.scene.getHeight() * MiniMap.SCALE - 10);
         mainArea.setFill(Color.TRANSPARENT);
         mainArea.setStrokeWidth(2);
         mainArea.setStroke(Color.YELLOW);
         this.pane.getChildren().addAll(rectangle, border, label, mainArea);
+        //this.pane.getChildren().addAll(imageViewTower1,imageViewTower2,imageViewTower3);
+//        imageViewTower1.setLayoutX(imageViewTower1.getX() * MiniMap.SCALE);
+//        imageViewTower2.setLayoutX(imageViewTower2.getX() * MiniMap.SCALE);
+//        imageViewTower3.setLayoutX(imageViewTower3.getX() * MiniMap.SCALE);
+//        imageViewTower1.setLayoutY(imageViewTower1.getY() * MiniMap.SCALE);
+//        imageViewTower2.setLayoutY(imageViewTower2.getY() * MiniMap.SCALE);
+//        imageViewTower3.setLayoutY(imageViewTower3.getY() * MiniMap.SCALE);
 
-      /*  this.pane.setOnMousePressed(event -> {
+        this.pane.setOnMousePressed(event -> {
             this.moveTo(event.getX(), event.getY());
-        });*/
+        });
     }
 
-    /*public void moveTo(double x, double y) {
+    public void moveTo(double x, double y) {
         if (x < mainArea.getWidth() / 2) {
             Main.getScrollPane().setHvalue(0);
         } else if (x > pane.getWidth() - mainArea.getWidth() / 2) {
@@ -61,7 +79,7 @@ public class MiniMap {
         } else if (y > pane.getHeight() - mainArea.getHeight() / 2) {
             Main.getScrollPane().setVvalue(1);
         } else Main.getScrollPane().setVvalue(y / pane.getHeight());
-    }*/
+    }
 
     public Pane getPane() {
         return pane;
@@ -112,6 +130,7 @@ public class MiniMap {
 
         for (Recruit recruit : Main.heroes) {
             ImageView imageView = recruits.get(recruit);
+
             imageView.setLayoutX(recruit.getX() * MiniMap.SCALE);
             imageView.setLayoutY(recruit.getY() * MiniMap.SCALE);
         }

@@ -1,4 +1,4 @@
-package Towers;
+package sample.Towers;
 
 import javafx.scene.Group;
 import javafx.scene.image.Image;

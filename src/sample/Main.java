@@ -1,8 +1,8 @@
 package sample;
 
-import Towers.Tower1;
-import Towers.Tower2;
-import Towers.Tower3;
+import sample.Towers.Tower1;
+import sample.Towers.Tower2;
+import sample.Towers.Tower3;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
@@ -47,6 +47,15 @@ public class Main extends Application {
     public static Scene input;
 
     public static Pane pane = new Pane();
+
+    public static ScrollPane getScrollPane() {
+        return scrollPane;
+    }
+
+    public static void setScrollPane(ScrollPane scrollPane) {
+        Main.scrollPane = scrollPane;
+    }
+
     public static ScrollPane scrollPane = new ScrollPane(pane);
     public static Scene scene = new Scene(scrollPane, 1920, 1080);
 
