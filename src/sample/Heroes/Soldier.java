@@ -15,7 +15,7 @@ public class Soldier extends Recruit {
 
     public int healthMax()
     {
-        return 150;
+        return 1500;
     }
     public int damageMax()
     {
@@ -32,8 +32,6 @@ public class Soldier extends Recruit {
         this.health=health;
         this.isActive=isActive;
 
-        //функція прінт переніс сюди, їй нема смислу бути там, це просто генерація,
-        // на даний момент, поки у тебе всі в ієрархії однакові по картінці, я цей кусок і в інших скопіював, змінив тіки головнку картинку
         System.out.println("Printing");
         imageView = new ImageView(imgSoldier);
         imageView.setPreserveRatio(true);
@@ -75,15 +73,10 @@ public class Soldier extends Recruit {
         //Main.heroes.add(this);
     }
 
-
-
-    public int health()
+    public String stringHeroType()
     {
-        return 150;
+        return "Soldat";
     }
-    public int damage()
-    {
-        return 2;
-    }
+
 
 }

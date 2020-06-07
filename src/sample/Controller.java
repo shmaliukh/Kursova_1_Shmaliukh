@@ -73,7 +73,7 @@ public class Controller implements Initializable {
 
 
         if(txtHealth.getText().isEmpty()){
-            life =rnd.nextInt(100);
+            life =rnd.nextInt(1000);
         }
         else {
             life= Math.abs(Integer.parseInt(txtHealth.getText()));
@@ -101,7 +101,7 @@ public class Controller implements Initializable {
         for( int i = 0 ; i < counter ; i++ ) {
             if(i==0)Main.addNewHero(name,life,damage,isHeroActive, x, y, type);
             else Main.addNewHero(heroNames[(int)rnd.nextInt(heroNames.length)],
-                    (int)rnd.nextInt(150),
+                    (int)rnd.nextInt(1500),
                     (int)rnd.nextInt(4),
                     isHeroActive,
                     (double)rnd.nextInt((int) (World.mapWidth-imgSizeWidth-20)),

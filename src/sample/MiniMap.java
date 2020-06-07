@@ -41,26 +41,36 @@ public class MiniMap {
         label.setFont(new Font(16));
         label.setLayoutX(pane.getMinWidth() / 2.1);
 
-        ImageView imageViewTower1 =new ImageView();
-        ImageView imageViewTower2 =new ImageView();
-        ImageView imageViewTower3 =new ImageView();
-
-        imageViewTower1= Tower1.getImageView();
-        imageViewTower2= Tower2.getImageView();
-        imageViewTower3= Tower3.getImageView();
-
         mainArea = new Rectangle(0, 0, Main.scene.getWidth() * MiniMap.SCALE, Main.scene.getHeight() * MiniMap.SCALE - 10);
         mainArea.setFill(Color.TRANSPARENT);
         mainArea.setStrokeWidth(2);
         mainArea.setStroke(Color.YELLOW);
         this.pane.getChildren().addAll(rectangle, border, label, mainArea);
+
+
+        ImageView imageViewTower1 =new ImageView();
+        ImageView imageViewTower2 =new ImageView();
+        ImageView imageViewTower3 =new ImageView();
+
+        this.pane.getChildren().addAll(imageViewTower1,imageViewTower2,imageViewTower3);
         //this.pane.getChildren().addAll(imageViewTower1,imageViewTower2,imageViewTower3);
-//        imageViewTower1.setLayoutX(imageViewTower1.getX() * MiniMap.SCALE);
-//        imageViewTower2.setLayoutX(imageViewTower2.getX() * MiniMap.SCALE);
-//        imageViewTower3.setLayoutX(imageViewTower3.getX() * MiniMap.SCALE);
-//        imageViewTower1.setLayoutY(imageViewTower1.getY() * MiniMap.SCALE);
-//        imageViewTower2.setLayoutY(imageViewTower2.getY() * MiniMap.SCALE);
-//        imageViewTower3.setLayoutY(imageViewTower3.getY() * MiniMap.SCALE);
+        imageViewTower1.setLayoutX(Tower1.getX() * MiniMap.SCALE);
+        imageViewTower2.setLayoutX(Tower2.getX() * MiniMap.SCALE);
+        imageViewTower3.setLayoutX(Tower3.getX() * MiniMap.SCALE);
+        imageViewTower1.setLayoutY(Tower1.getY() * MiniMap.SCALE);
+        imageViewTower2.setLayoutY(Tower2.getY() * MiniMap.SCALE);
+        imageViewTower3.setLayoutY(Tower3.getY() * MiniMap.SCALE);
+
+        imageViewTower1.setPreserveRatio(true);
+        imageViewTower2.setPreserveRatio(true);
+        imageViewTower3.setPreserveRatio(true);
+
+//        imageViewTower1.setFitHeight((Tower1.getImageView().getFitHeight()+70) * MiniMap.SCALE);
+//        imageViewTower2.setFitHeight((Tower2.getImageView().getFitHeight()+70) * MiniMap.SCALE);
+//        imageViewTower3.setFitHeight((Tower3.getImageView().getFitHeight()+70) * MiniMap.SCALE);
+
+
+
 
         this.pane.setOnMousePressed(event -> {
             this.moveTo(event.getX(), event.getY());
@@ -116,6 +126,9 @@ public class MiniMap {
         imageView.setLayoutY(recruit.getY() * MiniMap.SCALE);
         imageView.setPreserveRatio(true);
         imageView.setFitHeight((recruit.getImageView().getFitHeight()+70) * MiniMap.SCALE);
+
+
+
         recruits.put(recruit, imageView);
         pane.getChildren().add(imageView);
     }
@@ -127,6 +140,8 @@ public class MiniMap {
 
 
     public void updateMap() {
+
+
 
         for (Recruit recruit : Main.heroes) {
             ImageView imageView = recruits.get(recruit);

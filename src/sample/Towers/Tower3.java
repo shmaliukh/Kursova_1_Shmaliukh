@@ -23,8 +23,8 @@ public class Tower3 {
 
     protected Group allPictureOfTower3;
 
-    private double x = 100;
-    private double y = 500;
+    private static double x = 100;
+    private static double y = 500;
 
     private static int counterOperate;
 
@@ -32,7 +32,7 @@ public class Tower3 {
         return 3;
     }
 
-    public double getX() {
+    public static double getX() {
         return x;
     }
 
@@ -40,7 +40,7 @@ public class Tower3 {
         this.x = x;
     }
 
-    public double getY() {
+    public static double getY() {
         return y;
     }
 

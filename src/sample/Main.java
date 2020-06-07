@@ -132,12 +132,12 @@ public class Main extends Application {
         for (int i = 0; i < heroes.size(); i++) {
             Recruit buf = heroes.get(i);
             buffArray[i] = buf;
-            /*System.out.println("Recruit{" +
+            System.out.println("Recruit{" +
                     "name='" + buffArray[i].getName() + '\'' +
                     ", health=" + buffArray[i].getHealth() +
                     ", damage=" + buffArray[i].getDamage() +
                     ", isActive=" + buffArray[i].isActive() +
-                    '}');*/
+                    '}');
         }
        // System.out.println("java_util_Arrays_END");
 
@@ -156,6 +156,18 @@ public class Main extends Application {
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
 
+
+        try {
+            Recruit.imgRecruit = new Image("/sample/images/imgHero1.png");
+            Soldier.imgSoldier = new Image("/sample/images/imgHero2.png");
+            Knight.imgKnight = new Image("/sample/images/imgHero3.png");
+            Tower1.imgTower1 = new Image("/sample/images/imgTower1.png");
+            Tower2.imgTower2 = new Image("/sample/images/imgTower2.png");
+            Tower3.imgTower3 = new Image("/sample/images/imgTower3.png");
+        } catch (Exception e) {
+            System.out.println("Не удалось загрузить изображение!");
+        }
+
         miniMap = new MiniMap();
 
         //group = new Group();
@@ -170,16 +182,7 @@ public class Main extends Application {
         pane.getChildren().addAll(counterRecruits,counterSoldiers,counterKnights);
 
 
-        try {
-            Recruit.imgRecruit = new Image("/sample/images/imgHero1.png");
-            Soldier.imgSoldier = new Image("/sample/images/imgHero2.png");
-            Knight.imgKnight = new Image("/sample/images/imgHero3.png");
-            Tower1.imgTower1 = new Image("/sample/images/imgTower1.png");
-            Tower2.imgTower2 = new Image("/sample/images/imgTower2.png");
-            Tower3.imgTower3 = new Image("/sample/images/imgTower3.png");
-        } catch (Exception e) {
-            System.out.println("Не удалось загрузить изображение!");
-        }
+
 
         Main.addNewHero(heroNames[(int) (rnd.nextInt(heroNames.length))], 150, 1, false, 200, 200,1);
         Main.addNewHero(heroNames[(int) (rnd.nextInt(heroNames.length))], 200, 2, true, 100, 200,2);

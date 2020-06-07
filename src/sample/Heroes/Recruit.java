@@ -53,7 +53,7 @@ public class Recruit implements Cloneable{
 
     public int healthMax()
     {
-        return 100;
+        return 1000;
     }
     public int damageMax()
     {
@@ -108,7 +108,7 @@ public class Recruit implements Cloneable{
     }
     public void setX(double x) {
         this.x = x;
-    }
+    }   //делегування
     public void setY(double y) {
         this.y = y;
     }
@@ -209,7 +209,7 @@ public class Recruit implements Cloneable{
         this.lineDamage.setEndX(x+(double)91*damage/3);//максимальна довжина лінії така як і прямокутник активації - 91, 200 -максимальний
         this.lineDamage.setEndY(y-9);
 
-        this.lineHealth.setEndX(x+(double)91*health/200);
+        this.lineHealth.setEndX(x+(double)91*health/2000);
         this.lineHealth.setEndY(y-4);
 
         rectActive.setX(x);
@@ -229,7 +229,7 @@ public class Recruit implements Cloneable{
         else{ heroes.get(i).setDamage(damageMax());}
 
         heroes.get(i).lineDamage.setEndX(this.lineDamage.getStartX() + (((double) getDamage())/3*91));
-        heroes.get(i).lineHealth.setEndX(this.lineHealth.getStartX() + (((double) getHealth())/200*91));
+        heroes.get(i).lineHealth.setEndX(this.lineHealth.getStartX() + (((double) getHealth())/2000*91));
 
         System.out.println(heroes.get(i).getName() +" damage is "+ heroes.get(i).getDamage());
         System.out.println(heroes.get(i).getName() +" health is "+ heroes.get(i).getHealth());

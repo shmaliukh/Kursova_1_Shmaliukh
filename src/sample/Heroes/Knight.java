@@ -15,7 +15,7 @@ public class Knight extends Recruit{
 
     public int healthMax()
     {
-        return 200;
+        return 2000;
     }
     public int damageMax()
     {
@@ -32,8 +32,6 @@ public class Knight extends Recruit{
         this.health=health;
         this.isActive=isActive;
 
-        //функція прінт переніс сюди, їй нема смислу бути там, це просто генерація,
-        // на даний момент, поки у тебе всі в ієрархії однакові по картінці, я цей кусок і в інших скопіював, змінив тіки головнку картинку
         System.out.println("Printing");
         imageView = new ImageView(imgKnight);
         imageView.setPreserveRatio(true);
@@ -75,12 +73,10 @@ public class Knight extends Recruit{
         //Main.heroes.add(this);
     }
 
-    public int health()
+
+
+    public String stringHeroType()
     {
-        return 200;
-    }
-    public int damage()
-    {
-        return 3;
+        return "Knight";
     }
 }
