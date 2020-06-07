@@ -1,6 +1,8 @@
 package sample.Heroes;
 
 
+import Towers.Tower2;
+import Towers.Tower3;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -10,7 +12,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import sample.Main;
 import javafx.scene.text.Text;
-import sample.Tower1;
+import Towers.Tower1;
 
 import static sample.Main.*;
 
@@ -234,9 +236,7 @@ public class Recruit implements Cloneable{
     }
     }
 
-    public void interactionTower1(int i,int counterOperateTower1) {
-
-
+    public void interactionTower1(int i) {
             heroes.get(i).setDamage(heroes.get(i).damageMax());
             if(heroes.get(i) instanceof Knight &&
                     heroes.get(i).getHealth() < heroes.get(i).healthMax()){
@@ -251,10 +251,42 @@ public class Recruit implements Cloneable{
             else if(heroes.get(i) instanceof Recruit &&
                     heroes.get(i).getHealth() < heroes.get(i).healthMax()){
                 heroes.get(i).setHealth(heroes.get(i).getHealth() + Tower1.heal());
-
             }
+    }
+    public void interactionTower2(int i) {
+        heroes.get(i).setDamage(heroes.get(i).damageMax());
+        if(heroes.get(i) instanceof Knight &&
+                heroes.get(i).getHealth() < heroes.get(i).healthMax()){
+            heroes.get(i).setHealth(heroes.get(i).getHealth() + Tower2.heal());
 
+        }
+        else if(heroes.get(i) instanceof Soldier &&
+                heroes.get(i).getHealth() < heroes.get(i).healthMax()){
+            heroes.get(i).setHealth(heroes.get(i).getHealth() + Tower2.heal());
 
+        }
+        else if(heroes.get(i) instanceof Recruit &&
+                heroes.get(i).getHealth() < heroes.get(i).healthMax()){
+            heroes.get(i).setHealth(heroes.get(i).getHealth() + Tower2.heal());
+        }
+    }
+
+    public void interactionTower3(int i) {
+        heroes.get(i).setDamage(heroes.get(i).damageMax());
+        if(heroes.get(i) instanceof Knight &&
+                heroes.get(i).getHealth() < heroes.get(i).healthMax()){
+            heroes.get(i).setHealth(heroes.get(i).getHealth() + Tower3.heal());
+
+        }
+        else if(heroes.get(i) instanceof Soldier &&
+                heroes.get(i).getHealth() < heroes.get(i).healthMax()){
+            heroes.get(i).setHealth(heroes.get(i).getHealth() + Tower3.heal());
+
+        }
+        else if(heroes.get(i) instanceof Recruit &&
+                heroes.get(i).getHealth() < heroes.get(i).healthMax()){
+            heroes.get(i).setHealth(heroes.get(i).getHealth() + Tower3.heal());
+        }
     }
 
     public void tryToActive(double mx, double my) {

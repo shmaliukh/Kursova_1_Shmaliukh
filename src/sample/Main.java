@@ -1,5 +1,8 @@
 package sample;
 
+import Towers.Tower1;
+import Towers.Tower2;
+import Towers.Tower3;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
@@ -7,13 +10,10 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -155,6 +155,8 @@ public class Main extends Application {
             Soldier.imgSoldier = new Image("/sample/images/imgHero2.png");
             Knight.imgKnight = new Image("/sample/images/imgHero3.png");
             Tower1.imgTower1 = new Image("/sample/images/imgTower1.png");
+            Tower2.imgTower2 = new Image("/sample/images/imgTower2.png");
+            Tower3.imgTower3 = new Image("/sample/images/imgTower3.png");
         } catch (Exception e) {
             System.out.println("Не удалось загрузить изображение!");
         }
@@ -162,6 +164,8 @@ public class Main extends Application {
         Main.addNewHero(heroNames[(int) (rnd.nextInt(heroNames.length))], 150, 1, false, 200, 200,1);
         Main.addNewHero(heroNames[(int) (rnd.nextInt(heroNames.length))], 200, 2, true, 100, 200,2);
         Tower1 newTower1 =new Tower1();
+        Tower2 newTower2 =new Tower2();
+        Tower3 newTower3 =new Tower3();
 
 
         pane.getChildren().add(miniMap.getPane());
@@ -318,6 +322,8 @@ public class Main extends Application {
 
                                       }*/
                                       int counterOperateTower1=0;
+                                      int counterOperateTower2=0;
+                                      int counterOperateTower3=0;
                                       for (int i = 0; i < heroes.size(); i++) {
                                           if(heroes.get(i).getImageView().intersects(
                                                   Tower1.getImageView().getX(),
@@ -325,8 +331,26 @@ public class Main extends Application {
                                                   Tower1.imageView.getImage().getWidth(),
                                                   Tower1.imageView.getImage().getHeight()
                                           )) {
-                                              heroes.get(i).interactionTower1(i , counterOperateTower1);
+                                              heroes.get(i).interactionTower1(i);
                                               ++counterOperateTower1;
+                                          }
+                                          if(heroes.get(i).getImageView().intersects(
+                                                  Tower2.getImageView().getX(),
+                                                  Tower2.getImageView().getY(),
+                                                  Tower2.imageView.getImage().getWidth(),
+                                                  Tower2.imageView.getImage().getHeight()
+                                          )) {
+                                              heroes.get(i).interactionTower2(i);
+                                              ++counterOperateTower2;
+                                          }
+                                          if(heroes.get(i).getImageView().intersects(
+                                                  Tower3.getImageView().getX(),
+                                                  Tower3.getImageView().getY(),
+                                                  Tower3.imageView.getImage().getWidth(),
+                                                  Tower3.imageView.getImage().getHeight()
+                                          )) {
+                                              heroes.get(i).interactionTower3(i);
+                                              ++counterOperateTower3;
                                           }
 
                                               for (int j = 0; j < heroes.size(); j++) {
@@ -340,7 +364,9 @@ public class Main extends Application {
                                                       heroes.get(i).interactionHeroes(i, j);
                                                   }
                                               }
-                                              Tower1.setOperate(counterOperateTower1);
+                                          Tower1.setOperate(counterOperateTower1);
+                                          Tower2.setOperate(counterOperateTower2);
+                                          Tower3.setOperate(counterOperateTower3);
                                       }
 
 
