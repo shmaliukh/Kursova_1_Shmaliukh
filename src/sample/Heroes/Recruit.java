@@ -221,6 +221,7 @@ public class Recruit implements Cloneable{
     public void interactionHeroes(int i,int j) {
         if(heroes.get(i).getHealth()!=0 && heroes.get(j).getHealth()!=0){
         if(heroes.get(i).getHealth()<=5){
+            heroes.get(i).removeFromScreen();
             heroes.get(i).setDamage(0);
             heroes.get(i).setHealth(1);
             //System.out.println(heroes.get(i).getName() +" damage is "+ heroes.get(i).getDamage());

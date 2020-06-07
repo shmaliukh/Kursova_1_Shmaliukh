@@ -29,7 +29,7 @@ public class Tower3 {
     private static int counterOperate;
 
     public static int heal(){
-        return 2;
+        return 3;
     }
 
     public double getX() {

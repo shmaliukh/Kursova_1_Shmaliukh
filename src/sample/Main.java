@@ -59,6 +59,17 @@ public class Main extends Application {
     private static double scrollX;
     private static double scrollY;
 
+
+
+    private double delta = 5.0;
+    public double getDelta() {
+        return delta;
+    }
+
+    public void setDelta(double delta) {
+        this.delta = delta;
+
+    }
     public static double getScrollX() {
         return scrollX;
     }
@@ -215,7 +226,7 @@ public class Main extends Application {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
                                   @Override
                                   public void handle(KeyEvent event) {
-                                      double delta = 5.0;
+
                                       if (event.isShiftDown()) delta *= 10.0;
 
                                       switch (event.getCode()) {
@@ -223,9 +234,12 @@ public class Main extends Application {
 
                                               primaryStage.setScene(input);
 
-//                                          case PAGE_UP:
-//                                              //addNewHeroRand();
-//                                              break;
+                                          case PAGE_UP:
+                                              setDelta(getDelta()+1);
+                                              break;
+                                          case PAGE_DOWN:
+                                              setDelta(getDelta()-1);
+                                              break;
                                           case TAB:
                                               java_util_Arrays();
                                               break;
@@ -252,14 +266,7 @@ public class Main extends Application {
                                               }
                                               break;
 
-                                          case SPACE:
-                                              /*if (rnd.nextInt(4) == 1) y -= delta;
-                                              if (rnd.nextInt(4) == 1) y += delta;
-                                              if (rnd.nextInt(4) == 1) x -= delta;
-                                              if (rnd.nextInt(4) == 1) x += delta;
-                                              if (rnd.nextInt(4) == 1) x += delta;*/
 
-                                              break;
                                           case DIGIT1:
                                               Main.addNewHero(heroNames[(int) (rnd.nextInt(heroNames.length))],
                                                       rnd.nextInt(100), 1,
@@ -321,53 +328,53 @@ public class Main extends Application {
 
 
                                       }*/
-                                      int counterOperateTower1=0;
-                                      int counterOperateTower2=0;
-                                      int counterOperateTower3=0;
-                                      for (int i = 0; i < heroes.size(); i++) {
-                                          if(heroes.get(i).getImageView().intersects(
-                                                  Tower1.getImageView().getX(),
-                                                  Tower1.getImageView().getY(),
-                                                  Tower1.imageView.getImage().getWidth(),
-                                                  Tower1.imageView.getImage().getHeight()
-                                          )) {
-                                              heroes.get(i).interactionTower1(i);
-                                              ++counterOperateTower1;
-                                          }
-                                          if(heroes.get(i).getImageView().intersects(
-                                                  Tower2.getImageView().getX(),
-                                                  Tower2.getImageView().getY(),
-                                                  Tower2.imageView.getImage().getWidth(),
-                                                  Tower2.imageView.getImage().getHeight()
-                                          )) {
-                                              heroes.get(i).interactionTower2(i);
-                                              ++counterOperateTower2;
-                                          }
-                                          if(heroes.get(i).getImageView().intersects(
-                                                  Tower3.getImageView().getX(),
-                                                  Tower3.getImageView().getY(),
-                                                  Tower3.imageView.getImage().getWidth(),
-                                                  Tower3.imageView.getImage().getHeight()
-                                          )) {
-                                              heroes.get(i).interactionTower3(i);
-                                              ++counterOperateTower3;
-                                          }
-
-                                              for (int j = 0; j < heroes.size(); j++) {
-                                                  if (i != j && heroes.get(i).getImageView().intersects(heroes.get(j).getImageView().getX(),
-                                                          heroes.get(j).getImageView().getY(),
-                                                          imgSizeWidth,
-                                                          imgSizeHeight)) {
-                                                      heroes.get(i).setHealth(heroes.get(i).getHealth() - heroes.get(j).getDamage());
-                                                      //System.out.println(heroes.get(i).getHealth());
-
-                                                      heroes.get(i).interactionHeroes(i, j);
-                                                  }
-                                              }
-                                          Tower1.setOperate(counterOperateTower1);
-                                          Tower2.setOperate(counterOperateTower2);
-                                          Tower3.setOperate(counterOperateTower3);
-                                      }
+//                                      int counterOperateTower1=0;
+//                                      int counterOperateTower2=0;
+//                                      int counterOperateTower3=0;
+//                                      for (int i = 0; i < heroes.size(); i++) {
+//                                          if(heroes.get(i).getImageView().intersects(
+//                                                  Tower1.getImageView().getX(),
+//                                                  Tower1.getImageView().getY(),
+//                                                  Tower1.imageView.getImage().getWidth(),
+//                                                  Tower1.imageView.getImage().getHeight()
+//                                          )) {
+//                                              heroes.get(i).interactionTower1(i);
+//                                              ++counterOperateTower1;
+//                                          }
+//                                          if(heroes.get(i).getImageView().intersects(
+//                                                  Tower2.getImageView().getX(),
+//                                                  Tower2.getImageView().getY(),
+//                                                  Tower2.imageView.getImage().getWidth(),
+//                                                  Tower2.imageView.getImage().getHeight()
+//                                          )) {
+//                                              heroes.get(i).interactionTower2(i);
+//                                              ++counterOperateTower2;
+//                                          }
+//                                          if(heroes.get(i).getImageView().intersects(
+//                                                  Tower3.getImageView().getX(),
+//                                                  Tower3.getImageView().getY(),
+//                                                  Tower3.imageView.getImage().getWidth(),
+//                                                  Tower3.imageView.getImage().getHeight()
+//                                          )) {
+//                                              heroes.get(i).interactionTower3(i);
+//                                              ++counterOperateTower3;
+//                                          }
+//
+//                                              for (int j = 0; j < heroes.size(); j++) {
+//                                                  if (i != j && heroes.get(i).getImageView().intersects(heroes.get(j).getImageView().getX(),
+//                                                          heroes.get(j).getImageView().getY(),
+//                                                          imgSizeWidth,
+//                                                          imgSizeHeight)) {
+//                                                      heroes.get(i).setHealth(heroes.get(i).getHealth() - heroes.get(j).getDamage());
+//                                                      //System.out.println(heroes.get(i).getHealth());
+//
+//                                                      heroes.get(i).interactionHeroes(i, j);
+//                                                  }
+//                                              }
+//                                          Tower1.setOperate(counterOperateTower1);
+//                                          Tower2.setOperate(counterOperateTower2);
+//                                          Tower3.setOperate(counterOperateTower3);
+//                                      }
 
 
 
@@ -409,12 +416,103 @@ public class Main extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+
+
                 for (Recruit r : heroes) {
                     if( r instanceof Knight )++counter3;
                     else if( r instanceof Soldier )++counter2;
                     else if( r instanceof Recruit )++counter1;
+
+
+                    if(r.isActive()==false){
+                        r.setActive(true);
+                        switch (rnd.nextInt(100)){
+                            case 10:
+                                r.up(delta);
+                                break;
+                            case 20:
+                                r.down(delta);
+                                break;
+                            case 30:
+                                r.left(delta);
+                                break;
+                            case 40:
+                                r.right(delta);
+                                break;
+                            case 15:
+                                r.up(delta);
+                                r.right(delta);
+                                break;
+                            case 25:
+                                r.down(delta);
+                                r.right(delta);
+                                break;
+                            case 35:
+                                r.up(delta);
+                                r.left(delta);
+                                break;
+                            case 45:
+                                r.down(delta);
+                                r.left(delta);
+                                break;
+                        }
+                        r.setActive(false);
+                    }
+
+
+                    int counterOperateTower1=0;
+                    int counterOperateTower2=0;
+                    int counterOperateTower3=0;
+                    for (int i = 0; i < heroes.size(); i++) {
+                        if(heroes.get(i).getImageView().intersects(
+                                Tower1.getImageView().getX(),
+                                Tower1.getImageView().getY(),
+                                Tower1.imageView.getImage().getWidth(),
+                                Tower1.imageView.getImage().getHeight()
+                        )) {
+                            heroes.get(i).interactionTower1(i);
+                            ++counterOperateTower1;
+                        }
+                        if(heroes.get(i).getImageView().intersects(
+                                Tower2.getImageView().getX(),
+                                Tower2.getImageView().getY(),
+                                Tower2.imageView.getImage().getWidth(),
+                                Tower2.imageView.getImage().getHeight()
+                        )) {
+                            heroes.get(i).interactionTower2(i);
+                            ++counterOperateTower2;
+                        }
+                        if(heroes.get(i).getImageView().intersects(
+                                Tower3.getImageView().getX(),
+                                Tower3.getImageView().getY(),
+                                Tower3.imageView.getImage().getWidth(),
+                                Tower3.imageView.getImage().getHeight()
+                        )) {
+                            heroes.get(i).interactionTower3(i);
+                            ++counterOperateTower3;
+                        }
+
+                        for (int j = 0; j < heroes.size(); j++) {
+                            if (i != j && heroes.get(i).getImageView().intersects(heroes.get(j).getImageView().getX(),
+                                    heroes.get(j).getImageView().getY(),
+                                    imgSizeWidth,
+                                    imgSizeHeight)) {
+                                heroes.get(i).setHealth(heroes.get(i).getHealth() - heroes.get(j).getDamage());
+                                //System.out.println(heroes.get(i).getHealth());
+
+                                heroes.get(i).interactionHeroes(i, j);
+                            }
+                        }
+                        Tower1.setOperate(counterOperateTower1);
+                        Tower2.setOperate(counterOperateTower2);
+                        Tower3.setOperate(counterOperateTower3);
+                    }
+
                     r.move();
                 }
+
+
+
 
                 String text= "Кількість рекрутів: "+counter1 ;
                 counterRecruits.setText(text);
