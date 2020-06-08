@@ -8,6 +8,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import sample.Main;
+import sample.World;
 
 public class Tower1 {
 //    public boolean intersects( double x, double y, double wx, double wy ) {
@@ -23,7 +24,7 @@ public class Tower1 {
 
     protected Group allPictureOfTower1;
 
-    private static double x = 700;
+    private static double x = 1500;
     private static double y = 700;
 
     private static int counterOperate;
@@ -89,7 +90,9 @@ public class Tower1 {
     public Tower1(){
         imageView = new ImageView(imgTower1);
         imageView.setPreserveRatio(true);
-        //imageView.setFitHeight(120);
+
+        imageView.setFitHeight(280);//Розкоментірував і підібрав число 280, виглядає як і тоді, але тепер для мінікарти краще
+
 
         imageView.setX(getX());
         imageView.setY(getY());
@@ -112,6 +115,7 @@ public class Tower1 {
 
         this.allPictureOfTower1 = new Group(imageView, nameText, rect);
         Main.pane.getChildren().add(allPictureOfTower1);
+        World.getMiniMap().addTower(imageView);
 
     };
 

@@ -3,6 +3,9 @@ package sample;
 import sample.Towers.Tower1;
 import sample.Towers.Tower2;
 import sample.Towers.Tower3;
+import sample.Towers.Tower4;
+import sample.Towers.Tower5;
+import sample.Towers.Tower6;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,6 +25,7 @@ public class MiniMap {
     private double xChord;
     private double yChord;
     private HashMap<Recruit, ImageView> recruits;
+    private HashMap<ImageView, ImageView> towers;
     private Rectangle mainArea;
 
     public MiniMap() {
@@ -29,6 +33,7 @@ public class MiniMap {
         this.pane.setMinWidth(Main.pane.getMinWidth() * MiniMap.SCALE);
         this.pane.setMinHeight(Main.pane.getMinHeight() * MiniMap.SCALE);
         recruits = new HashMap<>();
+        towers = new HashMap<>();
 
 
         Rectangle rectangle = new Rectangle(0, 0, pane.getMinWidth(), pane.getMinHeight());
@@ -51,19 +56,34 @@ public class MiniMap {
         ImageView imageViewTower1 =new ImageView();
         ImageView imageViewTower2 =new ImageView();
         ImageView imageViewTower3 =new ImageView();
+        ImageView imageViewTower4 =new ImageView();
+        ImageView imageViewTower5 =new ImageView();
+        ImageView imageViewTower6 =new ImageView();
 
-        this.pane.getChildren().addAll(imageViewTower1,imageViewTower2,imageViewTower3);
+        this.pane.getChildren().addAll(imageViewTower1,imageViewTower2,imageViewTower3,
+                imageViewTower4,imageViewTower5,imageViewTower6);
         //this.pane.getChildren().addAll(imageViewTower1,imageViewTower2,imageViewTower3);
         imageViewTower1.setLayoutX(Tower1.getX() * MiniMap.SCALE);
         imageViewTower2.setLayoutX(Tower2.getX() * MiniMap.SCALE);
         imageViewTower3.setLayoutX(Tower3.getX() * MiniMap.SCALE);
+        imageViewTower4.setLayoutX(Tower4.getX() * MiniMap.SCALE);
+        imageViewTower5.setLayoutX(Tower5.getX() * MiniMap.SCALE);
+        imageViewTower6.setLayoutX(Tower6.getX() * MiniMap.SCALE);
+
+
         imageViewTower1.setLayoutY(Tower1.getY() * MiniMap.SCALE);
         imageViewTower2.setLayoutY(Tower2.getY() * MiniMap.SCALE);
         imageViewTower3.setLayoutY(Tower3.getY() * MiniMap.SCALE);
+        imageViewTower4.setLayoutX(Tower4.getX() * MiniMap.SCALE);
+        imageViewTower5.setLayoutX(Tower5.getX() * MiniMap.SCALE);
+        imageViewTower6.setLayoutX(Tower6.getX() * MiniMap.SCALE);
 
         imageViewTower1.setPreserveRatio(true);
         imageViewTower2.setPreserveRatio(true);
         imageViewTower3.setPreserveRatio(true);
+        imageViewTower4.setPreserveRatio(true);
+        imageViewTower5.setPreserveRatio(true);
+        imageViewTower6.setPreserveRatio(true);
 
 //        imageViewTower1.setFitHeight((Tower1.getImageView().getFitHeight()+70) * MiniMap.SCALE);
 //        imageViewTower2.setFitHeight((Tower2.getImageView().getFitHeight()+70) * MiniMap.SCALE);
@@ -139,11 +159,20 @@ public class MiniMap {
     }
 
 
+    public void addTower(ImageView imageView){
+        ImageView temp = new ImageView(imageView.getImage());
+        temp.setX(imageView.getX()*MiniMap.SCALE);
+        temp.setY(imageView.getY()*MiniMap.SCALE);
+        temp.setPreserveRatio(true);
+        temp.setFitHeight(imageView.getFitHeight()*MiniMap.SCALE);
+        towers.put(imageView,temp);
+        pane.getChildren().add(1, temp);
+    }
+
+
     public void updateMap() {
 
-
-
-        for (Recruit recruit : Main.heroes) {
+        for (Recruit recruit : World.heroes) {
             ImageView imageView = recruits.get(recruit);
 
             imageView.setLayoutX(recruit.getX() * MiniMap.SCALE);

@@ -31,6 +31,8 @@ public class Soldier extends Recruit {
         this.damage=damage;
         this.health=health;
         this.isActive=isActive;
+        this.type = 2;
+
 
         System.out.println("Printing");
         imageView = new ImageView(imgSoldier);

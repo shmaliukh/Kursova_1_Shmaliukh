@@ -31,6 +31,8 @@ public class Knight extends Recruit{
         this.damage=damage;
         this.health=health;
         this.isActive=isActive;
+        this.type = 3;
+
 
         System.out.println("Printing");
         imageView = new ImageView(imgKnight);

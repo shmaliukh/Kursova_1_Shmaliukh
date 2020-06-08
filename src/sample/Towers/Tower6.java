@@ -10,27 +10,27 @@ import javafx.scene.text.Text;
 import sample.Main;
 import sample.World;
 
-public class Tower2 {
+public class Tower6 {
 //    public boolean intersects( double x, double y, double wx, double wy ) {
 //        if( image.intersects(x,y,wx,wy) )return true;
 //
 //        return false;
 //    }
 
-    public static Image imgTower2;
+    public static Image imgTower6;
     public static ImageView imageView;
 
     protected static Text nameText;
 
-    protected Group allPictureOfTower2;
+    protected Group allPictureOfTower6;
 
-    private static double x = 2700;
-    private static double y = 1500;
+    private static double x = 300;
+    private static double y = 100;
 
     private static int counterOperate;
 
     public static int heal(){
-        return 2;
+        return 3;
     }
 
     public static double getX() {
@@ -67,12 +67,12 @@ public class Tower2 {
         this.nameText = nameText;
     }
 
-    public Group getAllPictureOfTower2() {
-        return allPictureOfTower2;
+    public Group getAllPictureOfTower6() {
+        return allPictureOfTower6;
     }
 
-    public void setAllPictureOfTower2(Group allPictureOfTower2) {
-        this.allPictureOfTower2 = allPictureOfTower2;
+    public void setAllPictureOfTower6(Group allPictureOfTower6) {
+        this.allPictureOfTower6 = allPictureOfTower6;
     }
 
 
@@ -87,10 +87,10 @@ public class Tower2 {
 
 
 
-    public Tower2(){
-        imageView = new ImageView(imgTower2);
+    public Tower6(){
+        imageView = new ImageView(imgTower6);
         imageView.setPreserveRatio(true);
-        imageView.setFitHeight(280);//Розкоментірував і підібрав число 280, виглядає як і тоді, але тепер для мінікарти краще
+        imageView.setFitHeight(340);
 
         imageView.setX(getX());
         imageView.setY(getY());
@@ -111,9 +111,10 @@ public class Tower2 {
         rect.setX(getX());
         rect.setY(getY());
 
-        this.allPictureOfTower2 = new Group(imageView, nameText, rect);
-        Main.pane.getChildren().add(allPictureOfTower2);
+        this.allPictureOfTower6 = new Group(imageView, nameText, rect);
+        Main.pane.getChildren().add(allPictureOfTower6);
         World.getMiniMap().addTower(imageView);
+
     };
 
 

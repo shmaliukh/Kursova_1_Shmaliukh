@@ -1,8 +1,7 @@
 package sample.Heroes;
 
 
-import sample.Towers.Tower2;
-import sample.Towers.Tower3;
+import sample.Towers.*;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,9 +11,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import sample.Main;
 import javafx.scene.text.Text;
-import sample.Towers.Tower1;
+import sample.World;
 
 import static sample.Main.*;
+import static sample.World.heroes;
 
 public class Recruit implements Cloneable{
 
@@ -27,8 +27,10 @@ public class Recruit implements Cloneable{
 
     protected double x;
     protected double y;
+    protected int type;
     ///////////////////////////////
-
+    //рух
+    protected int direction;
     /////////////////////////////// зображення героя
     public static Image imgRecruit;
     protected ImageView imageView;
@@ -80,15 +82,21 @@ public class Recruit implements Cloneable{
     public ImageView getImageView() {
         return imageView;
     }
-    public Rectangle getRectActive(){
-        return rectActive;
-    }
     public double getX() {
         return x;
     }
     public double getY() {
         return y;
     }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
     ///////////////////////////////
     /////////////////////////////// setters
     public void setName(String name) {
@@ -102,9 +110,6 @@ public class Recruit implements Cloneable{
     }
     public void setActive(boolean isActive ) {
         this.isActive = isActive;;
-    }
-    public void setImageView(ImageView imageView) {
-        this.imageView = imageView;
     }
     public void setX(double x) {
         this.x = x;
@@ -134,7 +139,7 @@ public class Recruit implements Cloneable{
     ///////////////////////////////
 
     public Recruit() {
-
+        this(null,0,0,true,0,0);
     }
     public Recruit(String name, int health, int damage,boolean isActive,double x, double y){
         System.out.println("Recruit_constructor");
@@ -144,7 +149,8 @@ public class Recruit implements Cloneable{
         this.damage=damage;
         this.health=health;
         this.isActive=isActive;
-
+        this.type = 1;
+        this.direction = World.rnd.nextInt(8);
 
         System.out.println("Printing");
         imageView = new ImageView(imgRecruit);
@@ -177,7 +183,7 @@ public class Recruit implements Cloneable{
 
 
         this.allPictureOfHero = new Group(imageView, nameText, lineDamage,lineHealth,rectActive);
-        Main.pane.getChildren().add(allPictureOfHero);
+        Main.pane.getChildren().add(pane.getChildren().size()-1, allPictureOfHero);
 
         System.out.println("Printing end");
 
@@ -206,7 +212,7 @@ public class Recruit implements Cloneable{
         this.lineHealth.setStartX(x+2);
         this.lineHealth.setStartY(y-4);
 
-        this.lineDamage.setEndX(x+(double)91*damage/3);//максимальна довжина лінії така як і прямокутник активації - 91, 200 -максимальний
+        this.lineDamage.setEndX(x+(double)91*damage/3);
         this.lineDamage.setEndY(y-9);
 
         this.lineHealth.setEndX(x+(double)91*health/2000);
@@ -217,10 +223,54 @@ public class Recruit implements Cloneable{
 
         //System.out.println("dx"+dx+"dy"+dy);
     }
+    public void freeRun(double delta) {
+        delta = delta/2;
+        if (!this.isActive()) {
+            switch (this.direction) {
+                case 0:
+                    this.y -= delta;
+                    break;
+                case 1:
+                    this.y -= delta;
+                    this.x += delta;
+                    break;
+                case 2:
+                    this.x += delta;
+                    break;
+                case 3:
+                    this.x += delta;
+                    this.y += delta;
+                    break;
+                case 4:
+                    this.y += delta;
+                    break;
+                case 5:
+                    this.y += delta;
+                    this.x -= delta;
+                    break;
+                case 6:
+                    this.x -= delta;
+                    break;
+                case 7:
+                    this.x -= delta;
+                    this.y -= delta;
+                    break;
+            }
+        }
+        if (this.imageView.getX() + 100 >= Main.pane.getWidth()) {
+            this.direction = (byte) (World.rnd.nextInt(3) + 5);
+        } else if (this.imageView.getX() <= 0) {
+            this.direction = (byte) (World.rnd.nextInt(3) + 1);
+        } else if (this.imageView.getY() <= 0 ) {
+            this.direction = (byte) (World.rnd.nextInt(3) + 3);
+        } else if (this.imageView.getY() + 170 >= Main.pane.getHeight()) {
+            this.direction = (byte) World.rnd.nextInt(2);
+        }
+    }
 
     public void interactionHeroes(int i,int j) {
-        if(heroes.get(i).getHealth()!=0 && heroes.get(j).getHealth()!=0){
-        if(heroes.get(i).getHealth()<=5){
+        if( heroes.get(i).getHealth()!=0 && heroes.get(j).getHealth()!=0){
+        if( heroes.get(i).getHealth()<=5){
             //heroes.get(i).removeFromScreen();
             heroes.get(i).setDamage(0);
             heroes.get(i).setHealth(1);
@@ -228,8 +278,8 @@ public class Recruit implements Cloneable{
         }
         else{ heroes.get(i).setDamage(damageMax());}
 
-        heroes.get(i).lineDamage.setEndX(this.lineDamage.getStartX() + (((double) getDamage())/3*91));
-        heroes.get(i).lineHealth.setEndX(this.lineHealth.getStartX() + (((double) getHealth())/2000*91));
+            heroes.get(i).lineDamage.setEndX(this.lineDamage.getStartX() + (((double) getDamage())/3*91));
+            heroes.get(i).lineHealth.setEndX(this.lineHealth.getStartX() + (((double) getHealth())/2000*91));
 
         System.out.println(heroes.get(i).getName() +" damage is "+ heroes.get(i).getDamage());
         System.out.println(heroes.get(i).getName() +" health is "+ heroes.get(i).getHealth());
@@ -238,35 +288,35 @@ public class Recruit implements Cloneable{
     }
 
     public void interactionTower1(int i) {
-            heroes.get(i).setDamage(heroes.get(i).damageMax());
-            if(heroes.get(i) instanceof Knight &&
+        heroes.get(i).setDamage(heroes.get(i).damageMax());
+            if( heroes.get(i) instanceof Knight &&
                     heroes.get(i).getHealth() < heroes.get(i).healthMax()){
                 heroes.get(i).setHealth(heroes.get(i).getHealth() + Tower1.heal());
 
             }
-            else if(heroes.get(i) instanceof Soldier &&
+            else if( heroes.get(i) instanceof Soldier &&
                     heroes.get(i).getHealth() < heroes.get(i).healthMax()){
                 heroes.get(i).setHealth(heroes.get(i).getHealth() + Tower1.heal());
 
             }
-            else if(heroes.get(i) instanceof Recruit &&
+            else if( heroes.get(i) instanceof Recruit &&
                     heroes.get(i).getHealth() < heroes.get(i).healthMax()){
                 heroes.get(i).setHealth(heroes.get(i).getHealth() + Tower1.heal());
             }
     }
     public void interactionTower2(int i) {
         heroes.get(i).setDamage(heroes.get(i).damageMax());
-        if(heroes.get(i) instanceof Knight &&
+        if( heroes.get(i) instanceof Knight &&
                 heroes.get(i).getHealth() < heroes.get(i).healthMax()){
             heroes.get(i).setHealth(heroes.get(i).getHealth() + Tower2.heal());
 
         }
-        else if(heroes.get(i) instanceof Soldier &&
+        else if( heroes.get(i) instanceof Soldier &&
                 heroes.get(i).getHealth() < heroes.get(i).healthMax()){
             heroes.get(i).setHealth(heroes.get(i).getHealth() + Tower2.heal());
 
         }
-        else if(heroes.get(i) instanceof Recruit &&
+        else if( heroes.get(i) instanceof Recruit &&
                 heroes.get(i).getHealth() < heroes.get(i).healthMax()){
             heroes.get(i).setHealth(heroes.get(i).getHealth() + Tower2.heal());
         }
@@ -287,6 +337,57 @@ public class Recruit implements Cloneable{
         else if(heroes.get(i) instanceof Recruit &&
                 heroes.get(i).getHealth() < heroes.get(i).healthMax()){
             heroes.get(i).setHealth(heroes.get(i).getHealth() + Tower3.heal());
+        }
+    }
+    public void interactionTower4(int i) {
+        heroes.get(i).setDamage(heroes.get(i).damageMax());
+        if(heroes.get(i) instanceof Knight &&
+                heroes.get(i).getHealth() < heroes.get(i).healthMax()){
+            heroes.get(i).setHealth(heroes.get(i).getHealth() + Tower4.heal());
+
+        }
+        else if(heroes.get(i) instanceof Soldier &&
+                heroes.get(i).getHealth() < heroes.get(i).healthMax()){
+            heroes.get(i).setHealth(heroes.get(i).getHealth() + Tower4.heal());
+
+        }
+        else if(heroes.get(i) instanceof Recruit &&
+                heroes.get(i).getHealth() < heroes.get(i).healthMax()){
+            heroes.get(i).setHealth(heroes.get(i).getHealth() + Tower4.heal());
+        }
+    }
+    public void interactionTower5(int i) {
+        heroes.get(i).setDamage(heroes.get(i).damageMax());
+        if(heroes.get(i) instanceof Knight &&
+                heroes.get(i).getHealth() < heroes.get(i).healthMax()){
+            heroes.get(i).setHealth(heroes.get(i).getHealth() + Tower5.heal());
+
+        }
+        else if(heroes.get(i) instanceof Soldier &&
+                heroes.get(i).getHealth() < heroes.get(i).healthMax()){
+            heroes.get(i).setHealth(heroes.get(i).getHealth() + Tower5.heal());
+
+        }
+        else if(heroes.get(i) instanceof Recruit &&
+                heroes.get(i).getHealth() < heroes.get(i).healthMax()){
+            heroes.get(i).setHealth(heroes.get(i).getHealth() + Tower5.heal());
+        }
+    }
+    public void interactionTower6(int i) {
+        heroes.get(i).setDamage(heroes.get(i).damageMax());
+        if(heroes.get(i) instanceof Knight &&
+                heroes.get(i).getHealth() < heroes.get(i).healthMax()){
+            heroes.get(i).setHealth(heroes.get(i).getHealth() + Tower6.heal());
+
+        }
+        else if(heroes.get(i) instanceof Soldier &&
+                heroes.get(i).getHealth() < heroes.get(i).healthMax()){
+            heroes.get(i).setHealth(heroes.get(i).getHealth() + Tower6.heal());
+
+        }
+        else if(heroes.get(i) instanceof Recruit &&
+                heroes.get(i).getHealth() < heroes.get(i).healthMax()){
+            heroes.get(i).setHealth(heroes.get(i).getHealth() + Tower6.heal());
         }
     }
 

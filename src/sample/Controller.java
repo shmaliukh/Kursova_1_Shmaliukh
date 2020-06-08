@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 import java.util.SplittableRandom;
 
 import static sample.Main.*;
+import static sample.World.rnd;
 
 public class Controller implements Initializable {
     public TextField txtX;
@@ -57,7 +58,7 @@ public class Controller implements Initializable {
         }
 
         if(txtName.getText().isEmpty()){
-            name = heroNames[(int)rnd.nextInt(heroNames.length)];
+            name = heroNames[(int) rnd.nextInt(heroNames.length)];
         }
         else {
             name =txtName.getText();
@@ -99,8 +100,8 @@ public class Controller implements Initializable {
 
 
         for( int i = 0 ; i < counter ; i++ ) {
-            if(i==0)Main.addNewHero(name,life,damage,isHeroActive, x, y, type);
-            else Main.addNewHero(heroNames[(int)rnd.nextInt(heroNames.length)],
+            if(i==0)World.addNewHero(name,life,damage,isHeroActive, x, y, type);
+            else World.addNewHero(heroNames[(int)rnd.nextInt(heroNames.length)],
                     (int)rnd.nextInt(1500),
                     (int)rnd.nextInt(4),
                     isHeroActive,
