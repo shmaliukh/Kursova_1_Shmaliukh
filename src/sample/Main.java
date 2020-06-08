@@ -2,6 +2,7 @@ package sample;
 
 import javafx.scene.input.KeyCode;
 import javafx.stage.FileChooser;
+import sample.Heroes.Mag;
 import sample.Towers.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -139,6 +140,7 @@ public class Main extends Application  {
             Recruit.imgRecruit=new Image("/sample/images/imgHero1.png");
             Soldier.imgSoldier=new Image("/sample/images/imgHero2.png");
             Knight.imgKnight = new Image("/sample/images/imgHero3.png");
+            Mag.imgMag = new Image("/sample/images/imgHero4.png");
             Tower1.imgTower1 = new Image("/sample/images/imgTower1.png");
             Tower2.imgTower2 = new Image("/sample/images/imgTower2.png");
             Tower3.imgTower3 = new Image("/sample/images/imgTower3.png");
@@ -160,13 +162,14 @@ public class Main extends Application  {
         counterRecruits.setFont(new Font("Times New Roman", 20));
         counterSoldiers.setFont(new Font("Times New Roman", 20));
         counterKnights.setFont(new Font("Times New Roman", 20));
+        counterMag.setFont(new Font("Times New Roman", 20));
 
-        pane.getChildren().addAll(counterRecruits, counterSoldiers, counterKnights);
+        pane.getChildren().addAll(counterRecruits, counterSoldiers, counterKnights,counterMag);
 
 
         World.addNewHero(heroNames[(int) (rnd.nextInt(heroNames.length))], 150, 1, false, 200, 200, 1);
         World.addNewHero(heroNames[(int) (rnd.nextInt(heroNames.length))], 200, 2, true, 100, 200, 2);
-
+        World.addNewHero(heroNames[(int) (rnd.nextInt(heroNames.length))], 200, -1, false, 300, 300, 4);
 
 
         pane.getChildren().add(World.getMiniMap().getPane());
@@ -302,6 +305,15 @@ public class Main extends Application  {
                                                       3);
 
                                               break;
+                                          case DIGIT4:
+                                              World.addNewHero(heroNames[(int) (rnd.nextInt(heroNames.length))],
+                                                      rnd.nextInt(200), -1,
+                                                      false,
+                                                      (double) rnd.nextInt((int) (World.mapWidth - imgSizeWidth - 20)),
+                                                      (double) rnd.nextInt((int) (World.mapHeight - imgSizeHeight)),
+                                                      4);
+
+                                              break;
                                           case W:
                                               for (Recruit r : heroes) {
                                                   r.up(delta);
@@ -345,8 +357,10 @@ public class Main extends Application  {
                 int counter1=0;
                 int counter2=0;
                 int counter3=0;
+                int counter4=0;
                 for (Recruit r : heroes) {
-                    if (r instanceof Knight) World.setCounter3(++counter3);
+                    if (r instanceof Mag) World.setCounter4(++counter4);
+                    else if (r instanceof Knight) World.setCounter3(++counter3);
                     else if (r instanceof Soldier)World.setCounter2(++counter2);
                     else if (r instanceof Recruit)World.setCounter1(++counter1);
 
@@ -454,10 +468,13 @@ public class Main extends Application  {
                                     heroes.get(j).getImageView().getY(),
                                     imgSizeWidth,
                                     imgSizeHeight)) {
-                                heroes.get(i).setHealth(heroes.get(i).getHealth() - heroes.get(j).getDamage());
-                                //System.out.println(heroes.get(i).getHealth());
+                                if( heroes.get(i).getHealth() <= heroes.get(i).healthMax() &&
+                                        heroes.get(j).getHealth() <= heroes.get(j).healthMax()){
+                                    heroes.get(i).setHealth(heroes.get(i).getHealth() - heroes.get(j).getDamage());
+                                    //System.out.println(heroes.get(i).getHealth());
 
-                                heroes.get(i).interactionHeroes(i, j);
+                                    heroes.get(i).interactionHeroes(i, j);}
+
                             }
                         }
                         Tower1.setOperate(counterOperateTower1);
@@ -484,12 +501,18 @@ public class Main extends Application  {
                 counterKnights.setText(text);
                 counter3 = 0;
 
+                text = "Кількість магів: " + counter4;
+                counterMag.setText(text);
+                counter4 = 0;
+
                 counterRecruits.setLayoutX(5);
                 counterRecruits.setLayoutY(5);
                 counterSoldiers.setLayoutX(5);
                 counterSoldiers.setLayoutY(25);
                 counterKnights.setLayoutX(5);
                 counterKnights.setLayoutY(45);
+                counterMag.setLayoutX(5);
+                counterMag.setLayoutY(65);
 
                 World.getMiniMap().updateMap();
             }

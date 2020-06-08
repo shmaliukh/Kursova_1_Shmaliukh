@@ -80,7 +80,7 @@ public class Controller implements Initializable {
             life= Math.abs(Integer.parseInt(txtHealth.getText()));
         }
         if(txtDamage.getText().isEmpty()){
-            damage =rnd.nextInt(100);
+            damage =rnd.nextInt(3);
         }
         else {
             damage= Math.abs(Integer.parseInt(txtDamage.getText()));

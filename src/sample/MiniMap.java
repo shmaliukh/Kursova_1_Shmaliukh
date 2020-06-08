@@ -1,5 +1,6 @@
 package sample;
 
+import sample.Heroes.Mag;
 import sample.Towers.Tower1;
 import sample.Towers.Tower2;
 import sample.Towers.Tower3;
@@ -36,13 +37,13 @@ public class MiniMap {
         towers = new HashMap<>();
 
 
-        Rectangle rectangle = new Rectangle(0, 0, pane.getMinWidth(), pane.getMinHeight());
+        Rectangle rectangle = new Rectangle(0, 0, pane.getMinWidth()+2, pane.getMinHeight()-2);
         rectangle.setFill(Color.LIGHTGREY);
-        Rectangle border = new Rectangle(0, 0, pane.getMinWidth(), pane.getMinHeight());
+        Rectangle border = new Rectangle(-2, -2, pane.getMinWidth()+6, pane.getMinHeight()-2);
         border.setFill(Color.TRANSPARENT);
-        border.setStrokeWidth(2);
-        border.setStroke(Color.BLACK);
-        Label label = new Label("Map");
+        border.setStrokeWidth(5);
+        border.setStroke(Color.DARKCYAN);
+        Label label = new Label("MAP");
         label.setFont(new Font(16));
         label.setLayoutX(pane.getMinWidth() / 2.1);
 
@@ -133,7 +134,9 @@ public class MiniMap {
 
     public void addRecruit(Recruit recruit) {
         ImageView imageView;
-        if (recruit instanceof Knight){
+        if (recruit instanceof Mag ){
+            imageView = new ImageView(new Image("/sample/images/imgHero4.png"));
+        } else if (recruit instanceof Knight){
             imageView = new ImageView(new Image("/sample/images/imgHero3.png"));
         } else if (recruit instanceof Soldier){
             imageView = new ImageView(new Image("/sample/images/imgHero2.png"));

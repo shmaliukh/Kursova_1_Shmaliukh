@@ -5,6 +5,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import sample.Heroes.Knight;
+import sample.Heroes.Mag;
 import sample.Heroes.Recruit;
 import sample.Heroes.Soldier;
 import sample.Towers.*;
@@ -38,6 +39,7 @@ public class World {
     public static Label counterRecruits = new Label();
     public static Label counterSoldiers = new Label();
     public static Label counterKnights  = new Label();
+    public static Label counterMag  = new Label();
 
     public static MiniMap getMiniMap() {
         return miniMap;
@@ -74,8 +76,17 @@ public class World {
         World.counter3 = counter3;
     }
 
+    public static int getCounter4() {
+        return counter4;
+    }
+
+    public static void setCounter4(int counter4) {
+        World.counter4 = counter4;
+    }
+
     private static int counter2 = 0;
     private static int counter3 = 0;
+    private static int counter4 = 0;
     public World(){
         Rectangle worldRectangle = new Rectangle(World.mapWidth, World.mapHeight, Color.BEIGE);
         pane.getChildren().add(worldRectangle);
@@ -106,6 +117,9 @@ public class World {
                 break;
             case 3:
                 NEW = new Knight(name, health, damage, isActive, x, y);
+                break;
+            case 4:
+                NEW = new Mag(name, health, damage, isActive, x, y);
                 break;
         }
 

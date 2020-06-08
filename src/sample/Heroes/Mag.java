@@ -10,20 +10,20 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import sample.Main;
 
-public class Knight extends Soldier{
-    public static Image imgKnight;
+public class Mag extends Knight{
+    public static Image imgMag;
 
     public int healthMax()
     {
-        return 2000;
+        return 1800;
     }
     public int damageMax()
     {
-        return 3;
+        return -1;
     }
 
-    public Knight(){};
-    public Knight(String name, int health, int damage,boolean isActive,double x, double y){
+    public Mag(){};
+    public Mag(String name, int health, int damage, boolean isActive, double x, double y){
         super();
         this.x=x;
         this.y=y;
@@ -31,11 +31,11 @@ public class Knight extends Soldier{
         this.damage=damage;
         this.health=health;
         this.isActive=isActive;
-        this.type = 3;
+        this.type = 4;
 
 
         System.out.println("Printing");
-        imageView = new ImageView(imgKnight);
+        imageView = new ImageView(imgMag);
         imageView.setPreserveRatio(true);
         imageView.setFitHeight(120);
         nameText = new Text(name);
@@ -43,7 +43,7 @@ public class Knight extends Soldier{
 
         lineDamage = new Line();
         lineDamage.setStrokeWidth(5);
-        lineDamage.setStroke(Color.RED);
+        lineDamage.setStroke(Color.AQUA);
 
         lineHealth=new Line(); //!!!health
         lineHealth.setStrokeWidth(5);
@@ -79,6 +79,6 @@ public class Knight extends Soldier{
 
     public String stringHeroType()
     {
-        return "Knight";
+        return "Mag";
     }
 }
