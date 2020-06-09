@@ -34,7 +34,7 @@ public class Mag extends Knight{
         this.type = 4;
 
 
-        System.out.println("Printing");
+        //System.out.println("Printing");
         imageView = new ImageView(imgMag);
         imageView.setPreserveRatio(true);
         imageView.setFitHeight(120);
@@ -67,7 +67,7 @@ public class Mag extends Knight{
         this.allPictureOfHero = new Group(imageView, nameText, lineDamage,lineHealth,rectActive);
         Main.pane.getChildren().add(allPictureOfHero);
 
-        System.out.println("Printing end");
+        //System.out.println("Printing end");
 
         this.toString();
 

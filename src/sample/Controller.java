@@ -78,12 +78,21 @@ public class Controller implements Initializable {
         }
         else {
             life= Math.abs(Integer.parseInt(txtHealth.getText()));
+            if(type==1 && life>1000)life=1000;
+            else if(type==2 && life>1500)life=1500;
+            else if(type==3 && life>2000)life=2000;
+            else if(type==4 && life>1800)life=1800;
+
         }
         if(txtDamage.getText().isEmpty()){
             damage =rnd.nextInt(3);
         }
         else {
             damage= Math.abs(Integer.parseInt(txtDamage.getText()));
+            if(type==1 && damage>1)damage=1000;
+            else if(type==2 && damage>2)damage=1500;
+            else if(type==3 && damage>3)damage=2000;
+            else if(type==4)damage=-1;
         }
         if(txtX.getText().isEmpty()){
             x =(double)rnd.nextInt((int)(World.mapHeight- imgSizeHeight));

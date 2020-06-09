@@ -195,7 +195,7 @@ public class Recruit implements Cloneable{
         this(null,0,0,true,0,0);
     }
     public Recruit(String name, int health, int damage,boolean isActive,double x, double y){
-        System.out.println("Recruit_constructor");
+        //System.out.println("Recruit_constructor");
         this.x=x;
         this.y=y;
         this.name=name;
@@ -205,7 +205,7 @@ public class Recruit implements Cloneable{
         this.type = 1;
         this.direction = World.rnd.nextInt(8);
 
-        System.out.println("Printing");
+        //System.out.println("Printing");
         imageView = new ImageView(imgRecruit);
         imageView.setPreserveRatio(true);
         imageView.setFitHeight(120);
@@ -238,7 +238,7 @@ public class Recruit implements Cloneable{
         this.allPictureOfHero = new Group(imageView, nameText, lineDamage,lineHealth,rectActive);
         Main.pane.getChildren().add(pane.getChildren().size()-1, allPictureOfHero);
 
-        System.out.println("Printing end");
+        //System.out.println("Printing end");
 
         this.toString();
 

@@ -34,7 +34,7 @@ public class Knight extends Soldier{
         this.type = 3;
 
 
-        System.out.println("Printing");
+        //System.out.println("Printing");
         imageView = new ImageView(imgKnight);
         imageView.setPreserveRatio(true);
         imageView.setFitHeight(120);
@@ -67,7 +67,7 @@ public class Knight extends Soldier{
         this.allPictureOfHero = new Group(imageView, nameText, lineDamage,lineHealth,rectActive);
         Main.pane.getChildren().add(allPictureOfHero);
 
-        System.out.println("Printing end");
+        //System.out.println("Printing end");
 
         this.toString();
 

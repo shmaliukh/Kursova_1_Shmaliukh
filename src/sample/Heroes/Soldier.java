@@ -34,7 +34,7 @@ public class Soldier extends Recruit {
         this.type = 2;
 
 
-        System.out.println("Printing");
+        //System.out.println("Printing");
         imageView = new ImageView(imgSoldier);
         imageView.setPreserveRatio(true);
         imageView.setFitHeight(120);
@@ -67,7 +67,7 @@ public class Soldier extends Recruit {
         this.allPictureOfHero = new Group(imageView, nameText, lineDamage,lineHealth,rectActive);
         Main.pane.getChildren().add(allPictureOfHero);
 
-        System.out.println("Printing end");
+        //System.out.println("Printing end");
 
         this.toString();
 

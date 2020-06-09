@@ -27,11 +27,15 @@ import static sample.World.counterMag;
 public class MiniMap {
     final static private double SCALE = 0.1;
     private Pane pane;
+    private Image img;
+    private Image imgBorder;
+
     private double xChord;
     private double yChord;
     private HashMap<Recruit, ImageView> recruits;
     private HashMap<ImageView, ImageView> towers;
     private Rectangle mainArea;
+    //private ImageView imageViewBorder;
 
     public MiniMap() {
         this.pane = new Pane();
@@ -40,18 +44,29 @@ public class MiniMap {
         recruits = new HashMap<>();
         towers = new HashMap<>();
 
+        try {
+            img = new Image("sample/Images/imgBackground.jpg");
+            imgBorder = new Image("sample/Images/imgMiniMapBorder.png");
+        } catch (Exception e) {
+            System.out.println("Не удалось загрузить изображение!");
+        }
+        //imageViewBorder = new ImageView("sample/Images/imgMiniMapBorder.png");
+        //imageViewBorder.setPreserveRatio(true);
+        //imageViewBorder.setFitHeight(120);
 
-        Image img = new Image("sample/Images/imgBackground.jpg");
+        new Image("/sample/images/imgTower6.png");
 
-
-
-        Rectangle rectangle = new Rectangle(0, 0, pane.getMinWidth()+2, pane.getMinHeight()-2);
+        Rectangle rectangle = new Rectangle(0, 0, pane.getMinWidth(), pane.getMinHeight());
 //        rectangle.setFill(Color.LIGHTGREY);
         rectangle.setFill(new ImagePattern(img));
-        Rectangle border = new Rectangle(-2, -2, pane.getMinWidth()+6, pane.getMinHeight()-2);
-        border.setFill(Color.TRANSPARENT);
-        border.setStrokeWidth(5);
-        border.setStroke(Color.DARKCYAN);
+
+        Rectangle border = new Rectangle(-40, -25, pane.getMinWidth()+80, pane.getMinHeight()+45);
+
+        border.setFill(new ImagePattern(imgBorder));
+        //border.setFill(Color.TRANSPARENT);
+        //border.setStrokeWidth(5);
+        //border.setStroke(Color.DARKCYAN);
+
         Label label = new Label("MAP");
         label.setFont(new Font(16));
         label.setLayoutX(pane.getMinWidth() / 2.1);
@@ -60,7 +75,7 @@ public class MiniMap {
         mainArea.setFill(Color.TRANSPARENT);
         mainArea.setStrokeWidth(2);
         mainArea.setStroke(Color.YELLOW);
-        this.pane.getChildren().addAll(rectangle, border, label, mainArea);
+        this.pane.getChildren().addAll(rectangle,border , label, mainArea);
 
 
         ImageView imageViewTower1 =new ImageView();
