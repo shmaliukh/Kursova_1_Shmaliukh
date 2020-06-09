@@ -46,9 +46,61 @@ public class Recruit implements Cloneable{
     protected Group allPictureOfHero;
     ///////////////////////////////
 
+    public int getDirection() {
+        return direction;
+    }
 
+    public void setDirection(int direction) {
+        this.direction = direction;
+    }
 
+    public static Image getImgRecruit() {
+        return imgRecruit;
+    }
 
+    public static void setImgRecruit(Image imgRecruit) {
+        Recruit.imgRecruit = imgRecruit;
+    }
+
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
+    }
+
+    public Rectangle getRectActive() {
+        return rectActive;
+    }
+
+    public void setRectActive(Rectangle rectActive) {
+        this.rectActive = rectActive;
+    }
+
+    public Text getNameText() {
+        return nameText;
+    }
+
+    public void setNameText(Text nameText) {
+        this.nameText = nameText;
+    }
+
+    public Line getLineHealth() {
+        return lineHealth;
+    }
+
+    public void setLineHealth(Line lineHealth) {
+        this.lineHealth = lineHealth;
+    }
+
+    public Line getLineDamage() {
+        return lineDamage;
+    }
+
+    public void setLineDamage(Line lineDamage) {
+        this.lineDamage = lineDamage;
+    }
+
+    public void setAllPictureOfHero(Group allPictureOfHero) {
+        this.allPictureOfHero = allPictureOfHero;
+    }
 
 
     ///////////////////////////////

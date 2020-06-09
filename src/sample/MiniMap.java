@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.scene.paint.ImagePattern;
 import sample.Heroes.Mag;
 import sample.Towers.Tower1;
 import sample.Towers.Tower2;
@@ -20,6 +21,9 @@ import sample.Heroes.Soldier;
 
 import java.util.HashMap;
 
+import static sample.World.*;
+import static sample.World.counterMag;
+
 public class MiniMap {
     final static private double SCALE = 0.1;
     private Pane pane;
@@ -37,8 +41,13 @@ public class MiniMap {
         towers = new HashMap<>();
 
 
+        Image img = new Image("sample/Images/imgBackground.jpg");
+
+
+
         Rectangle rectangle = new Rectangle(0, 0, pane.getMinWidth()+2, pane.getMinHeight()-2);
-        rectangle.setFill(Color.LIGHTGREY);
+//        rectangle.setFill(Color.LIGHTGREY);
+        rectangle.setFill(new ImagePattern(img));
         Rectangle border = new Rectangle(-2, -2, pane.getMinWidth()+6, pane.getMinHeight()-2);
         border.setFill(Color.TRANSPARENT);
         border.setStrokeWidth(5);
@@ -175,11 +184,21 @@ public class MiniMap {
 
     public void updateMap() {
 
+        counterRecruits.setLayoutX(Main.getScrollPane().getVvalue()+5);
+        counterRecruits.setLayoutY(Main.getScrollPane().getHvalue()+5);
+        counterSoldiers.setLayoutX(Main.getScrollPane().getVvalue()+5);
+        counterSoldiers.setLayoutY(Main.getScrollPane().getHvalue()+35);
+        counterKnights.setLayoutX(Main.getScrollPane().getVvalue()+5);
+        counterKnights.setLayoutY(Main.getScrollPane().getHvalue()+65);
+        counterMag.setLayoutX(Main.getScrollPane().getVvalue()+5);
+        counterMag.setLayoutY(Main.getScrollPane().getHvalue()+95);
+
         for (Recruit recruit : World.heroes) {
             ImageView imageView = recruits.get(recruit);
-
             imageView.setLayoutX(recruit.getX() * MiniMap.SCALE);
             imageView.setLayoutY(recruit.getY() * MiniMap.SCALE);
+
         }
+
     }
 }

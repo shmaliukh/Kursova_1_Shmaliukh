@@ -6,6 +6,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import sample.Main;
 import sample.World;
@@ -20,8 +22,8 @@ public class Tower4 {
 
     protected Group allPictureOfTower4;
 
-    private static double x = 3000;
-    private static double y = 200;
+    private static double x = 2950;
+    private static double y = 370;
 
     private static int counterOperate;
 
@@ -92,7 +94,12 @@ public class Tower4 {
         imageView.setY(getY());
 
         nameText = new Text("Опрацьовує: "+ getOperate());
-        nameText.setFont(new Font(16));
+
+        nameText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 30));
+        nameText.setStrokeWidth(1);
+        nameText.setStroke(Color.AQUA);
+
+        //nameText.setFont(new Font(20));
 
         nameText.setX(getX());
         nameText.setY(getY()-10);

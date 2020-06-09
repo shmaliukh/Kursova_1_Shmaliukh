@@ -220,8 +220,8 @@ public class Main extends Application  {
                                   @Override
                                   public void handle(KeyEvent event) {
 
-                                      if (event.isShiftDown()) delta *= 10.0;
-
+                                      if (event.isShiftDown()) delta += 5.0;
+                                      if (event.isControlDown()) delta -= 5.0;
                                       switch (event.getCode()) {
                                           case Z:
                                               FileChooser fileChooser = new FileChooser();
@@ -353,6 +353,7 @@ public class Main extends Application  {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+                World.getMiniMap().updateMap();
 
                 int counter1=0;
                 int counter2=0;
@@ -414,6 +415,11 @@ public class Main extends Application  {
                                 Tower1.imageView.getImage().getWidth(),
                                 Tower1.imageView.getImage().getHeight()
                         )) {
+//                            heroes.get(i).getImageView().setOpacity(0);
+//                            heroes.get(i).getRectActive().setOpacity(0);
+//                            heroes.get(i).getLineDamage().setOpacity(0);
+//                            heroes.get(i).getLineHealth().setOpacity(0);
+//                            heroes.get(i).getNameText().setOpacity(0);
                             heroes.get(i).interactionTower1(i);
                             ++counterOperateTower1;
                         }
@@ -508,13 +514,13 @@ public class Main extends Application  {
                 counterRecruits.setLayoutX(5);
                 counterRecruits.setLayoutY(5);
                 counterSoldiers.setLayoutX(5);
-                counterSoldiers.setLayoutY(25);
+                counterSoldiers.setLayoutY(35);
                 counterKnights.setLayoutX(5);
-                counterKnights.setLayoutY(45);
+                counterKnights.setLayoutY(65);
                 counterMag.setLayoutX(5);
-                counterMag.setLayoutY(65);
+                counterMag.setLayoutY(95);
 
-                World.getMiniMap().updateMap();
+
             }
         };
         timer.start();

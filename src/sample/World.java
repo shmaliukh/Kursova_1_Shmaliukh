@@ -1,9 +1,13 @@
 package sample;
 
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import sample.Heroes.Knight;
 import sample.Heroes.Mag;
 import sample.Heroes.Recruit;
@@ -40,6 +44,10 @@ public class World {
     public static Label counterSoldiers = new Label();
     public static Label counterKnights  = new Label();
     public static Label counterMag  = new Label();
+
+
+
+
 
     public static MiniMap getMiniMap() {
         return miniMap;
@@ -88,7 +96,9 @@ public class World {
     private static int counter3 = 0;
     private static int counter4 = 0;
     public World(){
-        Rectangle worldRectangle = new Rectangle(World.mapWidth, World.mapHeight, Color.BEIGE);
+        Image img = new Image("sample/Images/imgBackground.jpg");
+        Rectangle worldRectangle = new Rectangle(World.mapWidth, World.mapHeight);
+        worldRectangle.setFill(new ImagePattern(img));
         pane.getChildren().add(worldRectangle);
 
         miniMap = new MiniMap();
@@ -122,6 +132,11 @@ public class World {
                 NEW = new Mag(name, health, damage, isActive, x, y);
                 break;
         }
+
+        counterRecruits.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 25));
+        counterSoldiers.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 25));
+        counterKnights.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 25));
+        counterMag .setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 25));
 
 
         World.miniMap.addRecruit(NEW);
