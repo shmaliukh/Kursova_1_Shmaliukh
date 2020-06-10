@@ -199,14 +199,14 @@ public class MiniMap {
 
     public void updateMap() {
 
-        counterRecruits.setLayoutX(Main.getScrollPane().getVvalue()+5);
-        counterRecruits.setLayoutY(Main.getScrollPane().getHvalue()+5);
-        counterSoldiers.setLayoutX(Main.getScrollPane().getVvalue()+5);
-        counterSoldiers.setLayoutY(Main.getScrollPane().getHvalue()+35);
-        counterKnights.setLayoutX(Main.getScrollPane().getVvalue()+5);
-        counterKnights.setLayoutY(Main.getScrollPane().getHvalue()+65);
-        counterMag.setLayoutX(Main.getScrollPane().getVvalue()+5);
-        counterMag.setLayoutY(Main.getScrollPane().getHvalue()+95);
+//        counterRecruits.setLayoutX(Main.getScrollPane().getVvalue()+5);
+//        counterRecruits.setLayoutY(Main.getScrollPane().getHvalue()+5);
+//        counterSoldiers.setLayoutX(Main.getScrollPane().getVvalue()+5);
+//        counterSoldiers.setLayoutY(Main.getScrollPane().getHvalue()+35);
+//        counterKnights.setLayoutX(Main.getScrollPane().getVvalue()+5);
+//        counterKnights.setLayoutY(Main.getScrollPane().getHvalue()+65);
+//        counterMag.setLayoutX(Main.getScrollPane().getVvalue()+5);
+//        counterMag.setLayoutY(Main.getScrollPane().getHvalue()+95);
 
         for (Recruit recruit : World.heroes) {
             ImageView imageView = recruits.get(recruit);

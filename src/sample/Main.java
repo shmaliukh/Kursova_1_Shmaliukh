@@ -187,10 +187,19 @@ public class Main extends Application  {
                 scrollHeight = -1 * (int) bounds.getMinY() + bounds.getHeight();
 
                 // постійни здвиг карти при прокручуванні
-                World.getMiniMap().getPane().setLayoutX(scrollX + 10);
-                World.getMiniMap().getPane().setLayoutY(scrollY + scene.getHeight() - getMiniMap().getPane().getHeight() - 25);
+                World.getMiniMap().getPane().setLayoutX(scrollX + 50);
+                World.getMiniMap().getPane().setLayoutY(scrollY + scene.getHeight() - getMiniMap().getPane().getHeight() - 15);
                 World.getMiniMap().getMainArea().setLayoutX(scrollX * MiniMap.getSCALE());
                 World.getMiniMap().getMainArea().setLayoutY(scrollY * MiniMap.getSCALE());
+
+                counterRecruits.setLayoutX(scrollX);
+                counterRecruits.setLayoutY(scrollY+5);
+                counterSoldiers.setLayoutX(scrollX);
+                counterSoldiers.setLayoutY(scrollY+35);
+                counterKnights.setLayoutX(scrollX);
+                counterKnights.setLayoutY(scrollY+65);
+                counterMag.setLayoutX(scrollX);
+                counterMag.setLayoutY(scrollY+95);
 
                 //просто показує координати в даний момент
 //                System.out.println(" X from " + Main.scrollX + " to " +
@@ -511,14 +520,7 @@ public class Main extends Application  {
                 counterMag.setText(text);
                 counter4 = 0;
 
-                counterRecruits.setLayoutX(5);
-                counterRecruits.setLayoutY(5);
-                counterSoldiers.setLayoutX(5);
-                counterSoldiers.setLayoutY(35);
-                counterKnights.setLayoutX(5);
-                counterKnights.setLayoutY(65);
-                counterMag.setLayoutX(5);
-                counterMag.setLayoutY(95);
+
 
 
             }
